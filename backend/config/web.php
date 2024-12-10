@@ -15,6 +15,7 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '5XGMxIAL5IX9xS0emFdBn7RCrnccKQpI',
+            'enableCsrfValidation' => false 
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -46,11 +47,23 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
+            'rules' => [//将特定的请求路径映射到相应的控制器和操作
                 'POST api/auth/register' => 'api/auth/register',
                 'POST api/auth/login' => 'api/auth/login',
+                'api/addwebviews' => 'api/addwebviews',
+                'api/checkwebviews' => 'api/checkwebviews',
             ],
         ],  
+
+        'response' => [
+            'charset' => 'UTF-8',
+            'on beforeSend' => function ($event) {
+                $response = $event->sender;
+                $response->headers->set('Access-Control-Allow-Origin', '*');//设置跨域
+                $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+                $response->headers->set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+            },
+        ],
     ],
     'params' => $params,
 ];
