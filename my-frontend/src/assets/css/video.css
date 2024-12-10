@@ -1,0 +1,151 @@
+.video-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+}
+
+.video-container:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.video-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.video-header h1 {
+    font-size: 2em;
+    color: #333;
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+.video-header h1:hover {
+    color: #007bff;
+}
+
+.video-player {
+    display: flex; /* 使用flex布局 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    max-width: 100%; /* 确保视频容器不会超出其父元素的宽度 */
+    height: auto; /* 高度自动，以保持宽高比 */
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.video-player video {
+    width: 100%; /* 视频宽度自动调整为容器宽度 */
+    height: auto; /* 高度自动，以保持宽高比 */
+}
+
+
+.video-description {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.comment-section {
+    margin-top: 30px;
+}
+
+.comment-section h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.comment {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.comment:hover {
+    transform: translateY(-5px);
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.comment-date {
+    font-size: 0.8em;
+    color: #666;
+}
+
+.comment p {
+    margin: 0;
+    color: #666;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-form textarea {
+    resize: none;
+    height: 80px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+.comment-form button {
+    align-self: flex-end;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #42b983;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.comment-form button:hover {
+    background-color: #0056b3;
+}
+
+.video-likes {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.like-button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.like-button:hover {
+  background-color: #0056b3;
+}
+
+.like-count {
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
