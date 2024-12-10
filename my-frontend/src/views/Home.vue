@@ -115,7 +115,22 @@ export default {
       this.$router.push('/projectIntro');  // 跳转到项目介绍页面
     },
     goToProfilePage() {
-      this.$router.push('/profile');  // 跳转到个人页面
+      const username = sessionStorage.getItem("Username");
+      if (!username) {
+        this.$confirm("您尚未登录，是否跳转到登录页面？", "提示", {
+          confirmButtonText: "确认",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+          .then(() => {
+            this.$router.push("/login"); // 跳转到登录页面
+          })
+          .catch(() => {
+            this.$message.info("已取消操作");
+          });
+      } else {
+        this.$router.push("/profile"); // 跳转到个人页面
+      }
     },
   }
 };

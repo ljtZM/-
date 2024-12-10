@@ -104,6 +104,13 @@ export default {
       loading: false
     }
   },
+  created() {
+    const Username = sessionStorage.getItem('Username')
+    const Password = sessionStorage.getItem('Password')
+    if (Username && Password) {
+      window.location.href = '/'
+    }
+  },
   methods: {
     async handleLogin() {
       try {
@@ -115,13 +122,15 @@ export default {
         const response = await axios.post('http://localhost:8080/api/login?username=' + username + '&password=' + password)
 
         if (response.data.status === 1) {
+          sessionStorage.setItem('Username', username)
+          sessionStorage.setItem('Password', password)
           this.$message.success(response.data.message||'登录成功')
           // 清空表单
           this.loginForm = {
             username: '',
             password: ''
           }
-          localStorage.setItem('Username', response.data.username); // Store username in localStorage
+
           // 导航到 /home 路径
           setTimeout(() => {
             window.location.href = '/'
@@ -150,13 +159,13 @@ export default {
         const email = this.registerForm.email
         const password = this.registerForm.password
 
-        // // 密码要求的正则表达式
-        // const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+        // 密码要求的正则表达式
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
 
-        // if (!passwordPattern.test(this.registerForm.password)) {
-        //   this.$message.error('密码至少为8位数，并且要包含大小写字母数字数')
-        //   return
-        // }
+        if (!passwordPattern.test(this.registerForm.password)) {
+          this.$message.error('密码至少为8位数，并且要包含大小写字母数字数')
+          return
+        }
 
         const response = await axios.post('http://localhost:8080/api/register?username=' + username + '&password=' + password + '&email=' + email )
 

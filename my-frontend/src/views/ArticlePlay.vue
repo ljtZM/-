@@ -16,11 +16,9 @@
           <strong>{{ likeNum }}</strong>
           <span>个点赞 👍</span>
         </div>
-              <!-- 点赞按钮 -->
-      <LikeBtn :id="id" :type="a" @click="getLikeNum()" />
-        
+        <!-- 点赞按钮 -->
+        <LikeBtn :id="id" :type="a" :currentLikeNum="likeNum" @likeUpdated="updateLikeNum" />
       </div>
-
 
       <!-- 评论区域 -->
       <div class="comment-section">
@@ -40,10 +38,10 @@
                :key="index" 
                class="comment-item">
             <div class="comment-header">
-              <div class="user-name">{{ msg.Username }}</div>
-              <div class="comment-time">{{ msg.CommentDate }}</div>
+              <div class="user-name">{{ msg.username }}</div>
+              <div class="comment-time">{{ msg.comment_date }}</div>
             </div>
-            <div class="comment-content">{{ msg.Comment }}</div>
+            <div class="comment-content">{{ msg.comment }}</div>
           </div>
         </div>
       </div>
@@ -54,14 +52,16 @@
 <script>
 import axios from 'axios'
 import LikeBtn from '../components/LikeBtn.vue';
+
 export default {
     data() {
         return {
             title: '',
             content: '',
             articleTime: '',
-            likeNum: '',
-            messages: [],
+            likeNum: 0,  // 初始点赞数
+            messages: [],  // 评论列表
+            message: '',  // 用户输入的评论
             id: '',
             a: 'a'
         }
@@ -89,74 +89,86 @@ export default {
                   this.articleTime = response.data.publication_date
               })
               .catch((error) => {
-                  this.title = id
-                  this.content = id
-                  this.articleTime = id
                   console.error('请求数据失败', error)
               })
       },
-        getLikeNum() {
-            const id = this.$route.params.id
+      getLikeNum() {
+          const id = this.$route.params.id
+          axios
+              .post('http://localhost:8080/api/getarticlelikes?article_id=' + id)
+              .then((response) => {
+                  this.likeNum = response.data // 获取初始点赞数
+              })
+              .catch((error) => {
+                console.error('请求数据失败', error)
+              })
+      },
+      updateLikeNum(newLikeNum) {
+        this.likeNum = newLikeNum; // 更新点赞数
+      },
+      getComments() {
+        const id = this.$route.params.id;  // 获取文章的 ID
+        axios
+            .post(`http://localhost:8080/api/getarticlecomment?article_id=${id}`)  // 使用反引号
+            .then((response) => {
+                console.log('评论数据:', response.data);  // 在控制台打印返回的评论数据
+                if (response.data && Array.isArray(response.data)) {
+                    this.messages = response.data;  // 将返回的评论数据存入 messages 数组
+                } else {
+                    console.error('评论数据格式不正确');
+                }
+            })
+            .catch((error) => {
+                console.error('请求数据失败', error);  // 错误处理
+            });
+    },
+      submitMessage() {
+        const username = sessionStorage.getItem("Username");
+        if (!username) {
+          this.$confirm("您尚未登录，是否跳转到登录页面？", "提示", {
+            confirmButtonText: "确认",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+            .then(() => {
+              this.$router.push("/login"); // 跳转到登录页面
+            })
+            .catch(() => {
+              this.$message.info("已取消操作");
+            });
+        } else {
+          const id = this.$route.params.id;
+
+          if (this.message) {
+            const currentDate = new Date().toISOString(); // 获取当前时间，格式为 ISO 8601
+            const url = `http://localhost:8080/api/addarticlecomment?comment_date=${currentDate}&username=${username}&comment=${encodeURIComponent(
+                this.message
+            )}&article_id=${id}`;
             axios
-                .post('http://localhost:8080/api/getarticlelikes?articleID=' + id)
+                .post(url)
                 .then((response) => {
-                    this.likeNum = response.data
+                    const status = response.data.status;
+                    if (status === -1) {
+                        this.$message.error('添加评论失败');
+                    } else {
+                        this.message = '';
+                        this.getComments();  // 刷新评论列表
+                    }
                 })
                 .catch((error) => {
-                  this.likeNum = id
-                    console.error('请求数据失败', error)
-                })
-        },
-        getComments() {
-            const id = this.$route.params.id
-            axios
-                .post('http://localhost:8080/api/getarticlecomment?vid=' + id)
-                .then((response) => {
-                    this.messages = response.data
-                })
-                .catch((error) => {
-                    console.error('请求数据失败', error)
-                })
-        },
-        submitMessage() {
-           const username = localStorage.getItem('Username');
-            console.log('Username from sessionStorage:', username);
-            const id = this.$route.params.id;
-            console.log('id:', id);
-
-
-            if (!username) {
-                this.$message.error('请先登录再发表评论！');
-                return;
-            }
-
-            if (this.message) {
-                const url = `http://localhost:8080/api/addarticlecomment?username=${username}&comment=${encodeURIComponent(
-                    this.message
-                )}&articleID=${id}`;
-                axios
-                    .post(url)
-                    .then((response) => {
-                        const status = response.data.status;
-                        if (status === -1) {
-                            this.$message.error('添加评论失败');
-                        } else {
-                            this.message = '';
-                            this.getComments();
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('发送数据失败', error);
-                        this.$message.error('添加评论失败2');
-                    });
-            } else {
-                this.$message.error('请填写留言内容！');
-            }
+                    console.error('发送数据失败', error);
+                    this.$message.error('检查网络问题！');
+                });
+          } else {
+              this.$message.error('请填写评论！');
+          }
         }
-
+      }
     }
 }
 </script>
+
+
 
 <style scoped>
 .article-container {

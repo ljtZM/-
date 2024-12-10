@@ -14,6 +14,7 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   name: 'LikeBtn',
   props: {
@@ -24,31 +25,47 @@ export default {
     type: {
       type: String,
       required: true
+    },
+    currentLikeNum: {  // 添加接收点赞数的属性
+      type: Number,
+      required: true
     }
   },
   data() {
     return {
-      isLiked: false
+      isLiked: false,
+      updatedLikeNum: this.currentLikeNum // 使用传入的点赞数
     }
   },
   methods: {
     handleClick() {
       if (!this.isLiked) {
         const username = sessionStorage.getItem('Username')
+        const num = 1 // 每次点击增加1个点赞
         axios
-          .post(`http://localhost:8080/api/addlike?username=${username}&contentID=${this.id}&contenttype=${this.type}`)
+          .post('http://localhost:8080/api/addarticlelikes', null, {
+            params: {
+              username: username,
+              article_id: this.id,
+              num: num
+            }
+          })
           .then(() => {
-            this.isLiked = true
-            this.$emit('click')
+            this.isLiked = true // 设置按钮为已点赞
+            this.updatedLikeNum += 1 // 立即更新点赞数
+            this.$emit('likeUpdated', this.updatedLikeNum) // 通知父组件更新点赞数
           })
           .catch((error) => {
             console.error('点赞失败', error)
+            this.$message.error('点赞失败，请检查网络')
           })
       }
     }
   }
 }
 </script>
+
+
 
 <style scoped>
 .like-button-container {

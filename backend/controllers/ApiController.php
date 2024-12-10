@@ -177,26 +177,12 @@ class ApiController extends Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         $articleID = \Yii::$app->request->get('article_id');
-        $username = \Yii::$app->request->get('username');
         
-        if ($username !== null) {
-            // 查询指定用户名的评论
-            $comments = ArticleComments::find()
-                ->select(['id', 'article_id', 'comment', 'comment_date', 'username'])
-                ->where(['username' => $username])
-                ->all();
-        } elseif ($articleID !== null) {
-            // 查询指定文章 ID 的评论
-            $comments = ArticleComments::find()
-                ->select(['id', 'article_id', 'comment', 'comment_date', 'username'])
-                ->where(['article_id' => $articleID])
-                ->all();
-        } else {
-            // 查询所有评论
-            $comments = ArticleComments::find()
-                ->select(['id', 'article_id', 'comment', 'comment_date', 'username'])
-                ->all();
-        }
+        // 查询指定文章 ID 的评论
+        $comments = ArticleComments::find()
+            ->select(['id', 'article_id', 'comment', 'comment_date', 'username'])
+            ->where(['article_id' => $articleID])
+            ->all();
 
         return $comments;
     }
@@ -209,11 +195,13 @@ class ApiController extends Controller
         $username = \Yii::$app->request->get('username');
         $comment = \Yii::$app->request->get('comment');
         $articleID = \Yii::$app->request->get('article_id');
+        $comment_date = \Yii::$app->request->get('comment_date');
 
         $commentModel = new ArticleComments();
         $commentModel->username = $username;
         $commentModel->comment = $comment;
         $commentModel->article_id = $articleID;
+        $commentModel->comment_date = $comment_date;
 
         if ($commentModel->save()) {
             return ['status' => 1, 'message' => 'Comment added successfully'];

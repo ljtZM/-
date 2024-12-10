@@ -60,7 +60,7 @@ $config = [
                 'api/getarticlecomment' => 'api/getarticlecomment',
                 'api/addarticlecomment' => 'api/addarticlecomment',
                 'api/getarticlelikes' => 'api/getarticlelikes',
-                'api/addarticlelikes' => 'api/addarticlelikecount',
+                'api/addarticlelikes' => 'api/addarticlelikes',
 
                 'api/getvideo' => 'api/getvideo',
                 'api/getvideopagecount' => 'api/getvideopagecount',
