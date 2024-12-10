@@ -46,10 +46,38 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
-                'POST api/auth/register' => 'api/auth/register',
-                'POST api/auth/login' => 'api/auth/login',
+            'rules' => [/////////////
+                'api/login' => 'api/login',
+                'api/signup' => 'api/signup',
+                'api/adminlogin' => 'api/adminlogin',
+                'api/getarticle' => 'api/getarticle',
+                'api/getvideo' => 'api/getvideo',
+                'api/getvideocomment' => 'api/getvideocomment',
+                'api/getarticlecomment' => 'api/getarticlecomment',
+                'api/getclick' => 'api/getclick',
+                'api/addvideocomment' => 'api/addvideocomment',
+                'api/addarticlecomment' => 'api/addarticlecomment',
+                'api/addclick' => 'api/addclick',
+                'api/getpersonalinfo' => 'api/getpersonalinfo',
+                'api/addwebviews' => 'api/addwebviews',
+                'api/getvideopagecount' => 'api/getvideopagecount',
+                'api/getarticlepagecount' => 'api/getarticlepagecount',
+                'api/checkwebviews' => 'api/checkwebviews',
+                'api/getvideolikes' => 'api/getvideolikes',
+                'api/getarticlelikes' => 'api/getarticlelikes',
+                'api/addvideolikes' => 'api/addvideolikes',
+                'api/addarticlelikes' => 'api/addarticlelikes',
             ],
+        ],
+        'response' => [
+            // 'format' => yii\web\Response::FORMAT_JSON,
+            'charset' => 'UTF-8',
+            'on beforeSend' => function ($event) {
+                $response = $event->sender;
+                $response->headers->set('Access-Control-Allow-Origin', '*');//这个是设置跨域
+                $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+                $response->headers->set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+            ],//////////
         ],  
     ],
     'params' => $params,
