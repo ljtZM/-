@@ -1,107 +1,345 @@
 <template>
-  <div>
-    <h1>用户注册</h1>
-    <form @submit.prevent="handleRegister">
-      <div>
-        <label for="username">用户名:</label>
-        <input v-model="username" id="username" type="text" required />
-      </div>
-      <div>
-        <label for="email">邮箱:</label>
-        <input v-model="email" id="email" type="email" required />
-      </div>
-      <div>
-        <label for="password">密码:</label>
-        <input v-model="password" id="password" type="password" required />
-      </div>
-      <button type="submit">注册</button>
-    </form>
+  <div class="form-box">
+    <!-- 切换按钮 -->
+    <div class="toggle-buttons">
+      <button 
+        :class="['toggle-btn', isLogin ? 'active' : '']" 
+        @click="isLogin = true"
+      >
+        登录
+      </button>
+      <button 
+        :class="['toggle-btn', !isLogin ? 'active' : '']" 
+        @click="isLogin = false"
+      >
+        注册
+      </button>
+    </div>
 
-    <h1>用户登录</h1>
-    <form @submit.prevent="handleLogin">
-      <div>
-        <label for="loginUsername">用户名:</label>
-        <input v-model="loginUsername" id="loginUsername" type="text" required />
-      </div>
-      <div>
-        <label for="loginPassword">密码:</label>
-        <input v-model="loginPassword" id="loginPassword" type="password" required />
-      </div>
-      <button type="submit">登录</button>
-    </form>
+    <!-- 使用 transition 组件包裹表单 -->
+    <transition name="fade" mode="out-in">
+      <!-- 登录表单 -->
+      <form v-if="isLogin" @submit.prevent="handleLogin" class="form" key="login">
+        <div class="form-group">
+          <input 
+            type="text" 
+            v-model="loginForm.username" 
+            placeholder="用户名"
+            required
+          >
+        </div>
+        <div class="form-group">
+          <input 
+            type="password" 
+            v-model="loginForm.password" 
+            placeholder="密码"
+            required
+          >
+        </div>
+        <button type="submit" class="submit-btn" :disabled="loading">
+          {{ loading ? '登录中...' : '登录' }}
+        </button>
+      </form>
+
+      <!-- 注册表单 -->
+      <form v-else @submit.prevent="handleRegister" class="form" key="register">
+        <div class="form-group">
+          <input 
+            type="text" 
+            v-model="registerForm.username" 
+            placeholder="用户名"
+            required
+          >
+        </div>
+        <div class="form-group">
+          <input 
+            type="email" 
+            v-model="registerForm.email" 
+            placeholder="邮箱"
+            required
+          >
+        </div>
+        <div class="form-group">
+          <input 
+            type="password" 
+            v-model="registerForm.password" 
+            placeholder="密码"
+            required
+          >
+        </div>
+        <div class="form-group">
+          <input 
+            type="password" 
+            v-model="registerForm.confirmPassword" 
+            placeholder="确认密码"
+            required
+          >
+        </div>
+        <button type="submit" class="submit-btn" :disabled="loading">
+          {{ loading ? '注册中...' : '注册' }}
+        </button>
+      </form>
+    </transition>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios'
 
-/*
-handleRegister：当用户提交注册表单时，调用 registerUser 方法，传入用户名、邮箱和密码，并显示相应的结果。
-handleLogin：当用户提交登录表单时，调用 loginUser 方法，传入用户名和密码，并显示登录结果。
-registerUser：
-使用 axios.post 向后端发送注册请求 (/api/auth/register)，请求体中包含用户名、邮箱和密码。
-如果返回的响应数据 status 为 "success"，则表示注册成功，否则返回失败信息。
-如果请求出错，则捕获错误并返回 "注册失败"。
-loginUser：
-使用 axios.post 向后端发送登录请求 (/api/auth/login)，请求体中包含用户名和密码。
-如果登录成功，后端会返回一个 auth_key，并将其保存在 localStorage 中（用于后续身份验证）。如果登录失败，则返回错误信息。
-*/
 export default {
+  name: 'LoginView',
   data() {
     return {
-      username: "",
-      email: "",
-      password: "",
-      loginUsername: "",
-      loginPassword: ""
-    };
+      isLogin: true,
+      loginForm: {
+        username: '',
+        password: ''
+      },
+      registerForm: {
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      },
+      loading: false
+    }
   },
   methods: {
-    async handleRegister() {
-      const response = await this.registerUser(this.username, this.email, this.password);
-      alert(response);
-    },
     async handleLogin() {
-      const response = await this.loginUser(this.loginUsername, this.loginPassword);
-      alert(response);
-    },
-    async registerUser(username, email, password) {
       try {
-        console.log("Sending register request with data:", { username, email, password });
-        const response = await axios.post("http://localhost:8080/api/auth/register", {
-          username,
-          email,
-          password
-        });
-        console.log("Register response:", response);
-        if (response.data.status === "success") {
-          return "注册成功";
+        this.loading = true
+
+        const username = this.loginForm.username
+        const password = this.loginForm.password
+
+        const response = await axios.post('http://localhost:8080/api/login?username=' + username + '&password=' + password)
+
+        if (response.data.status === 1) {
+          this.$message.success(response.data.message||'登录成功')
+          // 清空表单
+          this.loginForm = {
+            username: '',
+            password: ''
+          }
+          localStorage.setItem('Username', response.data.username); // Store username in localStorage
+          // 导航到 /home 路径
+          setTimeout(() => {
+            window.location.href = '/'
+          }, 2000)
         } else {
-          console.log("Register failed, message:", response.data.message);
-          return response.data.message;
+          this.$message.error(response.data.message || '登录失败')
         }
       } catch (error) {
-        console.error("注册失败", error);
-        return "注册失败";
+        console.error('登录出错：', error)
+        this.$message.error('登录失败，请稍后重试')
+      } finally {
+        this.loading = false
       }
     },
-    async loginUser(username, password) {
+
+    async handleRegister() {
+      if (this.registerForm.password !== this.registerForm.confirmPassword) {
+        this.$message.error('两次输入的密码不一致！')
+        return
+      }
+
       try {
-        const response = await axios.post("http://localhost:8080/api/auth/login", {
-          username,
-          password
-        });
-        if (response.data.status === "success") {
-          localStorage.setItem("auth_key", response.data.auth_key);
-          return "登录成功";
-        } else {
-          return "用户名或密码错误";
+        this.loading = true
+
+        const username = this.registerForm.username
+        const email = this.registerForm.email
+        const password = this.registerForm.password
+
+        // // 密码要求的正则表达式
+        // const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+
+        // if (!passwordPattern.test(this.registerForm.password)) {
+        //   this.$message.error('密码至少为8位数，并且要包含大小写字母数字数')
+        //   return
+        // }
+
+        const response = await axios.post('http://localhost:8080/api/register?username=' + username + '&password=' + password + '&email=' + email )
+
+        if (response.data.status === 1) {
+          this.$message.success(response.data.message||'注册成功！')
+          this.isLogin = true
+          this.loginForm.username = this.registerForm.username
+          this.loginForm.password = this.registerForm.password
+          // 清空注册表单
+          this.registerForm = {
+            username: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+          }
+          
+        } else if (response.data.status === 0){
+          this.$message.error(response.data.message || '注册失败')
         }
       } catch (error) {
-        console.error("登录失败", error);
-        return "登录失败";
+        console.error('注册出错：', error)
+        this.$message.error('注册失败，请稍后重试')
+      } finally {
+        this.loading = false
       }
     }
   }
-};
+}
 </script>
+
+<style scoped>
+.form-box {
+  background: white;
+  padding: 30px;
+  width: 80%;
+  height: auto;
+  margin: 50px auto;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  max-width: 400px;
+}
+
+.toggle-buttons {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+}
+
+.toggle-btn.active {
+  color: #1890ff;
+  border-bottom: 2px solid #1890ff;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #1890ff;
+}
+
+.submit-btn {
+  width: 90%;
+  margin: 10px auto;
+  display: block;
+  padding: 12px;
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submit-btn:hover {
+  background-color: #40a9ff;
+}
+
+.form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 40px;
+  border: 2px solid #ffffff;
+  /* border-radius: 8px; */
+  background: #ffffff;
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); */
+}
+
+/* 淡入淡出效果 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 切换按钮动画 */
+.toggle-btn {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.toggle-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #1890ff;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn.active::after {
+  width: 100%;
+  left: 0;
+}
+
+/* 输入框动画 */
+.form-group {
+  transition: all 0.3s ease;
+}
+
+input {
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.1);
+}
+
+/* 按钮动画 */
+.submit-btn {
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+}
+
+/* 表单容器动画 */
+.form {
+  transition: all 0.3s ease;
+}
+
+/* 添加禁用状态样式 */
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+</style>

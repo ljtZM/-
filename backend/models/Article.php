@@ -50,6 +50,8 @@ class Article extends \yii\db\ActiveRecord
             'title' => 'Title',
             'content' => 'Content',
             'author' => 'Author',
+            'summary' => 'Summary',
+            'publication_date' => 'Publication_Date',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
