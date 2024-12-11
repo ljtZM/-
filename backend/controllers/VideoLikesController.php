@@ -2,16 +2,16 @@
 
 namespace app\controllers;
 
-use app\models\Videos;
-use app\models\VideosSearch;
+use app\models\VideoLikes;
+use app\models\VideoLikesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * VideoController implements the CRUD actions for Videos model.
+ * VideolikesController implements the CRUD actions for Videolikes model.
  */
-class VideoController extends Controller
+class VideoLikesController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,13 +32,13 @@ class VideoController extends Controller
     }
 
     /**
-     * Lists all Videos models.
+     * Lists all Videolikes models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new VideosSearch();
+        $searchModel = new VideoLikesSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,8 +48,8 @@ class VideoController extends Controller
     }
 
     /**
-     * Displays a single Videos model.
-     * @param int $id ID
+     * Displays a single Videolikes model.
+     * @param int $LikeID Like ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -61,17 +61,17 @@ class VideoController extends Controller
     }
 
     /**
-     * Creates a new Videos model.
+     * Creates a new Videolikes model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Videos();
+        $model = new VideoLikes();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'LikeID' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -83,9 +83,9 @@ class VideoController extends Controller
     }
 
     /**
-     * Updates an existing Videos model.
+     * Updates an existing Videolikes model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
+     * @param int $LikeID Like ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -94,7 +94,7 @@ class VideoController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'LikeID' => $model->id]);
         }
 
         return $this->render('update', [
@@ -103,9 +103,9 @@ class VideoController extends Controller
     }
 
     /**
-     * Deletes an existing Videos model.
+     * Deletes an existing Videolikes model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
+     * @param int $LikeID Like ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -117,15 +117,15 @@ class VideoController extends Controller
     }
 
     /**
-     * Finds the Videos model based on its primary key value.
+     * Finds the Videolikes model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Videos the loaded model
+     * @param int $LikeID Like ID
+     * @return Videolikes the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($LikeID)
     {
-        if (($model = Videos::findOne(['id' => $id])) !== null) {
+        if (($model = VideoLikes::findOne(['LikeID' => $id])) !== null) {
             return $model;
         }
 

@@ -75,8 +75,9 @@ export default {
       this.video = this.videos.find(v => v.id === parseInt(this.id));
     },
     getVideoComments() {
+      const id = this.$route.params.id;  // 获取文章的 ID
       axios
-        .get(`http://localhost:8081/api/getvideocomments/${this.id}`)
+        .get(`http://localhost:8081/api/getvideocomments?video_id=${id}`)
         .then((response) => {
           this.comments = response.data; // 将评论数据赋值给 comments
         })

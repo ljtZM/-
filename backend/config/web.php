@@ -49,10 +49,21 @@ $config = [
             'rules' => [
                 'api/auth/register' => 'api/auth/register',
                 'api/auth/login' => 'api/auth/login',
-                'api/getvideocomments/' => 'api/getvideocomments',
-                'api/addvideocomments/' => 'api/addvideocomments',
+                'api/getvideocomments' => 'api/getvideocomments',
+                'api/addvideocomments' => 'api/addvideocomments',
             ],
         ],  
+    ],
+    'as corsFilter' => [
+        'class' => \yii\filters\Cors::class,
+        'cors' => [
+            // restrict access to domains:
+            'Origin' => ['http://localhost:8082'], // 允许访问的域名
+            'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+            'Access-Control-Allow-Credentials' => true,
+            'Access-Control-Max-Age' => 3600,
+            'Access-Control-Allow-Headers' => ['*'], // 如访问需要的请求头
+        ],
     ],
     'params' => $params,
 ];
