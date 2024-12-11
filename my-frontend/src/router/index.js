@@ -4,14 +4,14 @@ import Home from '../views/Home.vue';
 
 const routes = [
     {
+        path: '/teammember',
+        name: 'teammember',
+        component: () => import('../views/teammember.vue') 
+    },
+    {
         path: '/',
         name: 'Home',
         component: Home // 如果有首页
-    },
-    {
-        path: '/aboutUs',
-        name: 'AboutUs',
-        component: () => import('../views/AboutUs.vue') // 你可能需要创建一个 Articles.vue 页面
     },
     {
         path: '/projectIntro',

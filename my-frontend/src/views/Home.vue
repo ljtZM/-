@@ -10,7 +10,7 @@
       </div>
       <el-menu :default-active="active" class="menu" mode="horizontal">
         <el-menu-item index="home" @click="goToHomePage">首页</el-menu-item>
-        <el-menu-item index="aboutUs" @click="goToAboutUsPage">关于我们</el-menu-item>
+        <el-menu-item index="teammember" @click="goToteammemberPage">关于我们</el-menu-item>
         <el-menu-item index="projectIntro" @click="goToProjectIntroPage">项目介绍</el-menu-item>
         <el-menu-item index="profile" @click="goToProfilePage">个人</el-menu-item>
       </el-menu>
@@ -108,8 +108,8 @@ export default {
     goToHomePage() {
       this.$router.push('/');  // 跳转到首页
     },
-    goToAboutUsPage() {
-      this.$router.push('/aboutUs');  // 跳转到关于我们页面
+    goToteammemberPage() {
+      this.$router.push('/teammember');  // 跳转到关于我们页面
     },
     goToProjectIntroPage() {
       this.$router.push('/projectIntro');  // 跳转到项目介绍页面
