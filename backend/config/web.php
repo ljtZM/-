@@ -51,9 +51,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'api/adminlogin' => 'api/adminlogin',
+
                 'api/login' => 'api/authenticate',
                 'api/signup' => 'api/register',
-                'api/adminlogin' => 'api/adminlogin',
 
                 'api/getarticle' => 'api/getarticle',
                 'api/getarticlepagecount' => 'api/getarticlepagecount',
@@ -76,6 +77,11 @@ $config = [
 
                 'api/addwebviews' => 'api/addwebviews',
                 'api/checkwebviews' => 'api/checkwebviews',
+
+                'Users/index' => 'users/index',
+                'articles/index' => 'article/index',
+                'articlecomments/index' => 'articlecomments/index',
+                'articlelikes/index' => 'articlelikes/index'
             ],
         ],  
 

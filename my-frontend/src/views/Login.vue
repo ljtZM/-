@@ -159,18 +159,21 @@ export default {
         const email = this.registerForm.email
         const password = this.registerForm.password
 
-        // 密码要求的正则表达式
-        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,}$/
 
         if (!passwordPattern.test(this.registerForm.password)) {
-          this.$message.error('密码至少为8位数，并且要包含大小写字母数字数')
+          this.$message.error('密码至少为8位，且包含大小写字母、数字和特殊字符')
           return
         }
+
 
         const response = await axios.post('http://localhost:8080/api/register?username=' + username + '&password=' + password + '&email=' + email )
 
         if (response.data.status === 1) {
           this.$message.success(response.data.message||'注册成功！')
+          sessionStorage.setItem('Username', username)
+          sessionStorage.setItem('Password', password)
+          sessionStorage.setItem("Email", email)
           this.isLogin = true
           this.loginForm.username = this.registerForm.username
           this.loginForm.password = this.registerForm.password

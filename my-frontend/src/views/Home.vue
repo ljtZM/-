@@ -13,6 +13,7 @@
         <el-menu-item index="aboutUs" @click="goToAboutUsPage">关于我们</el-menu-item>
         <el-menu-item index="projectIntro" @click="goToProjectIntroPage">项目介绍</el-menu-item>
         <el-menu-item index="profile" @click="goToProfilePage">个人</el-menu-item>
+        <el-menu-item index="adminlogin" @click="goToAdminLogin">管理员登录</el-menu-item>
       </el-menu>
     </div>
   
@@ -99,6 +100,9 @@ export default {
     };
   },
   methods: {
+    goToAdminLogin() {
+      this.$router.push('/admin');  // 跳转到首页
+    },
     goToArticlePage() {
       this.$router.push('/articles');
     },

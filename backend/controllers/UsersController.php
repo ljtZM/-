@@ -40,8 +40,10 @@ class UsersController extends Controller
     {
         $searchModel = new UsersSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
+        // 查询所有用户
+        $users = Users::find()->all();
         return $this->render('index', [
+            'users' => $users,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

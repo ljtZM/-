@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Articlecomments $model */
 
-$this->title = 'Update Articlecomments: ' . $model->CommentID;
+$this->title = 'Update Articlecomments: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Articlecomments', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->CommentID, 'url' => ['view', 'CommentID' => $model->CommentID]];
+$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="articlecomments-update">

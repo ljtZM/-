@@ -1,5 +1,10 @@
 <template>
   <div class="article-container">
+    <!-- 返回按钮 -->
+    <div class="back-button-container">
+      <button @click="goBack" class="back-button">返回</button>
+    </div>
+
     <div class="article-wrapper">
       <!-- 文章主体内容 -->
       <div class="article-content">
@@ -76,6 +81,11 @@ export default {
         this.id = this.$route.params.id
     },
     methods: {
+       // 返回按钮点击事件
+      goBack() {
+        // 跳转到你想去的页面
+        this.$router.push({ name: 'article' }); // targetPageName 是你要跳转的页面名称
+      },
       getUrl() {
           const id = this.$route.params.id
           axios
@@ -103,8 +113,16 @@ export default {
                 console.error('请求数据失败', error)
               })
       },
-      updateLikeNum(newLikeNum) {
-        this.likeNum = newLikeNum; // 更新点赞数
+      updateLikeNum() {
+        const id = this.$route.params.id
+          axios
+              .post('http://localhost:8080/api/getarticlelikes?article_id=' + id)
+              .then((response) => {
+                  this.likeNum = response.data // 获取初始点赞数
+              })
+              .catch((error) => {
+                console.error('请求数据失败', error)
+              })
       },
       getComments() {
         const id = this.$route.params.id;  // 获取文章的 ID
@@ -171,6 +189,27 @@ export default {
 
 
 <style scoped>
+/* 返回按钮样式 */
+.back-button-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.back-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #409EFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #66b3ff;
+}
+
 .article-container {
   min-height: 100vh;
   padding: 40px 20px;

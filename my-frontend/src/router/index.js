@@ -30,6 +30,14 @@ const routes = [
         }
     },
     {
+        path: '/admin',
+        name: 'admin',
+        component: () => import('../views/adminLogin.vue'),
+        meta: {
+          showNavBar: false
+        }
+      },
+    {
         path: '/articles',
         name: 'article',
         component: () => import('../views/ArticleView.vue'),

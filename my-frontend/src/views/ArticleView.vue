@@ -1,5 +1,15 @@
 <template>
   <div class="page-container">
+    <!-- 上方导航栏 -->
+    <div class="navbar">
+      <el-menu :default-active="active" class="menu" mode="horizontal">
+        <el-menu-item index="home" @click="goToHomePage">首页</el-menu-item>
+        <el-menu-item index="aboutUs" @click="goToAboutUsPage">关于我们</el-menu-item>
+        <el-menu-item index="projectIntro" @click="goToProjectIntroPage">项目介绍</el-menu-item>
+        <el-menu-item index="profile" @click="goToProfilePage">个人</el-menu-item>
+      </el-menu>
+    </div>
+    
     <div class="header">
       <h1 class="page-title">文章列表</h1>
     </div>
@@ -57,6 +67,33 @@ export default {
     this.getpage();  // Fetch page count
   },
   methods: {
+    goToHomePage() {
+      this.$router.push('/');  // 跳转到首页
+    },
+    goToAboutUsPage() {
+      this.$router.push('/aboutUs');  // 跳转到关于我们页面
+    },
+    goToProjectIntroPage() {
+      this.$router.push('/projectIntro');  // 跳转到项目介绍页面
+    },
+    goToProfilePage() {
+      const username = sessionStorage.getItem("Username");
+      if (!username) {
+        this.$confirm("您尚未登录，是否跳转到登录页面？", "提示", {
+          confirmButtonText: "确认",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+          .then(() => {
+            this.$router.push("/login"); // 跳转到登录页面
+          })
+          .catch(() => {
+            this.$message.info("已取消操作");
+          });
+      } else {
+        this.$router.push("/profile"); // 跳转到个人页面
+      }
+    },
     getUrl() {
       axios
         .post('http://localhost:8080/api/getarticle')

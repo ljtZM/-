@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'ArticleID')->textInput() ?>
+    <?= $form->field($model, 'article_id')->textInput() ?>
 
-    <?= $form->field($model, 'Likes')->textInput() ?>
+    <?= $form->field($model, 'likes')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

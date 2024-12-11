@@ -8,9 +8,42 @@ use app\models\Article;
 use app\models\ArticleComments;
 use app\models\ArticleLikes;
 use app\models\Webviews;
+use app\models\Admins;
 
 class ApiController extends Controller
 {   
+    public function actionAdminlogin()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $username = \Yii::$app->request->get('username');
+        $password = \Yii::$app->request->get('password');
+
+        // Check if both username and password are provided
+        if ($username !== null && $password !== null) {
+            // Hardcoded admin credentials
+            if ($username === 'admin' && $password === 'admin') {
+                // Check if the user is an admin
+                $admin = Admins::find()
+                    ->where(['Username' => $username]) // Check if the user exists as an admin
+                    ->one();
+                
+                if ($admin !== null) {
+                    return ['status' => 1]; // Admin credentials are correct
+                } else {
+                    return ['status' => 0]; // Not an admin
+                }
+            } else {
+                // Incorrect username or password
+                return ['status' => 0];
+            }
+        }
+
+        // Return an error if no username or password provided
+        return ['status' => 0];
+    }
+
+    
     public function actionAddwebviews()
     {
         //设置响应格式为 JSON
@@ -115,6 +148,7 @@ class ApiController extends Controller
             return ['status' => -1, 'message' => '缺少必要参数'];
         }
     }
+
 
     //获取文章总页数
     public function actionGetarticlepagecount()

@@ -29,15 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'CommentID',
-            'ArticleID',
-            'Comment:ntext',
-            'CommentDate',
-            'Username',
+            'id',
+            'article_id',
+            'comment:ntext',
+            'comment_date',
+            'ysername',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Articlecomments $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'CommentID' => $model->CommentID]);
+                    return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
         ],
