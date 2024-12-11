@@ -9,9 +9,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * VideolikesController implements the CRUD actions for Videolikes model.
+ * VideoLikesController implements the CRUD actions for Videolikes model.
  */
-class VideolikesController extends Controller
+class VideoLikesController extends Controller
 {
     /**
      * @inheritDoc

@@ -9,9 +9,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * VideocommentsController implements the CRUD actions for VideoComments model.
+ * VideoCommentsController implements the CRUD actions for VideoComments model.
  */
-class VideocommentsController extends Controller
+class VideoCommentsController extends Controller
 {
     /**
      * @inheritDoc
