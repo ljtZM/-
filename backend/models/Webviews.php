@@ -1,7 +1,5 @@
 <?php
-
 namespace app\models;
-
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\base\Model;
@@ -110,3 +108,5 @@ class Webviews extends \yii\db\ActiveRecord
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
+
+    
