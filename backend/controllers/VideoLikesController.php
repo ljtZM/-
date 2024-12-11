@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 /**
  * VideolikesController implements the CRUD actions for Videolikes model.
  */
-class VideoLikesController extends Controller
+class VideolikesController extends Controller
 {
     /**
      * @inheritDoc
@@ -49,7 +49,7 @@ class VideoLikesController extends Controller
 
     /**
      * Displays a single Videolikes model.
-     * @param int $LikeID Like ID
+     * @param int $id Like ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -71,7 +71,7 @@ class VideoLikesController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'LikeID' => $model->id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,7 +85,7 @@ class VideoLikesController extends Controller
     /**
      * Updates an existing Videolikes model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $LikeID Like ID
+     * @param int $id Like ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -94,7 +94,7 @@ class VideoLikesController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'LikeID' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -105,7 +105,7 @@ class VideoLikesController extends Controller
     /**
      * Deletes an existing Videolikes model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $LikeID Like ID
+     * @param int $id Like ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -119,13 +119,13 @@ class VideoLikesController extends Controller
     /**
      * Finds the Videolikes model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $LikeID Like ID
+     * @param int $id Like ID
      * @return Videolikes the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($LikeID)
+    protected function findModel($id)
     {
-        if (($model = VideoLikes::findOne(['LikeID' => $id])) !== null) {
+        if (($model = VideoLikes::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

@@ -32,7 +32,7 @@ class VideoLikes extends ActiveRecord
         return [
             [['video_id'], 'required'],
             [['video_id', 'likes'], 'integer'],
-            [['video_id'], 'exist', 'skipOnError' => true, 'targetClass' => Video::class, 'targetAttribute' => ['video_id' => 'id']],
+            [['video_id'], 'exist', 'skipOnError' => true, 'targetClass' => Videos::class, 'targetAttribute' => ['video_id' => 'id']],
         ];
     }
 
@@ -55,6 +55,6 @@ class VideoLikes extends ActiveRecord
      */
     public function getVideo()
     {
-        return $this->hasOne(Video::class, ['id' => 'video_id']);
+        return $this->hasOne(Videos::class, ['id' => 'video_id']);
     }
 }

@@ -51,6 +51,8 @@ $config = [
                 'api/auth/login' => 'api/auth/login',
                 'api/getvideocomments' => 'api/getvideocomments',
                 'api/addvideocomments' => 'api/addvideocomments',
+                'api/getvideolikes' => 'api/getvideolikes',
+                'api/addvideolikes' => 'api/addvideolikes',
             ],
         ],  
     ],

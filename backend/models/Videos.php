@@ -34,7 +34,7 @@ class Videos extends ActiveRecord
         return [
             [['title', 'url'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
-            [['title'], 'string', 'max' => 255],
+            [['title', 'url'], 'string', 'max' => 255],
         ];
     }
 
@@ -52,23 +52,14 @@ class Videos extends ActiveRecord
         ];
     }
 
-    /**
-     * Gets query for [[VideoLikes]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getVideoLikes()
     {
         return $this->hasMany(VideoLikes::class, ['video_id' => 'id']);
     }
-
-    /**
-     * Gets query for [[Videocomments]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+    
     public function getVideoComments()
     {
         return $this->hasMany(VideoComments::class, ['video_id' => 'id']);
     }
+    
 }

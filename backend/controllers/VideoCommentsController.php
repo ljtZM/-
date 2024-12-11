@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 /**
  * VideocommentsController implements the CRUD actions for VideoComments model.
  */
-class VideoCommentsController extends Controller
+class VideocommentsController extends Controller
 {
     /**
      * @inheritDoc
