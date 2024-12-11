@@ -63,10 +63,13 @@ $config = [
                 'api/getarticlelikes' => 'api/getarticlelikes',
                 'api/addarticlelikes' => 'api/addarticlelikes',
 
+                'api/addwebviews' => 'api/addwebviews',
+                'api/checkwebviews' => 'api/checkwebviews',
+                
                 'api/getvideo' => 'api/getvideo',
-                'api/getvideopagecount' => 'api/getvideopagecount',
-                'api/getvideocomment' => 'api/getvideocomment',
-                'api/addvideocomment' => 'api/addvideocomment',
+                'api/getvideocomments' => 'api/getvideocomments',
+                'api/addvideocomments' => 'api/addvideocomments',
+                
                 'api/getvideolikes' => 'api/getvideolikes',
                 'api/addvideolikes' => 'api/addvideolikes',
 
@@ -75,8 +78,7 @@ $config = [
 
                 'api/getpersonalinfo' => 'api/getpersonalinfo',
 
-                'api/addwebviews' => 'api/addwebviews',
-                'api/checkwebviews' => 'api/checkwebviews',
+                
 
                 'Users/index' => 'users/index',
                 'articles/index' => 'article/index',

@@ -9,7 +9,7 @@ const routes = [
     {
         path: '/aboutUs',
         name: 'AboutUs',
-        component: () => import('../views/AboutUs.vue') // 你可能需要创建一个 Articles.vue 页面
+        component: () => import('../views/teammember.vue') // 你可能需要创建一个 Articles.vue 页面
     },
     {
         path: '/projectIntro',

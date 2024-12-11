@@ -1,5 +1,5 @@
 <script>
-import MenberBox from '../components/MenberBox.vue'
+import MContainer from '../components/MContainer.vue'
 import axios from 'axios'
 export default {
   data() {
@@ -13,19 +13,19 @@ export default {
       downloadSrc: [
         {
           title: '崔交军',
-          link: 'public/data',
+          link: 'public/data/1.zip',
         },
         {
           title: '高艺轩',
-          link: 'public/data'
+          link: 'public/data/1.zip'
         },
         {
           title: '团队作业',
-          link: 'public/data'
+          link: 'public/data/1.zip'
         },
         {
           title: '李嘉桐',
-          link: 'public/data'
+          link: 'public/data/1.zip'
         },
         {
           title: '杨峥芃',
@@ -35,26 +35,16 @@ export default {
     }
   },
   components: {
-    MenberBox
+    MContainer
   },
   mounted() {
-    this.checkViews()
-    this.getInfo()
+    this.checkviews()
   },
   methods: {
-    checkViews() {
+    checkviews() {
       axios.post('http://localhost:8080/api/checkwebviews')
         .then((response) => {
-          this.views = response.data.Views
-        })
-        .catch((error) => {
-          console.error('请求失败', error)
-        })
-    },
-    getInfo() {
-      axios.post('http://localhost:8080/api/getpersonalinfo?name=网站介绍')
-        .then((response) => {
-          this.Info = response.data.Info
+          this.views = response.data.views
         })
         .catch((error) => {
           console.error('请求失败', error)
@@ -91,14 +81,12 @@ export default {
     <div class="breadcrumb">
       <button @click="scrollToSection('webInfo0')">网站信息</button>
       <button @click="scrollToSection('download')">作业下载</button>
-      <button @click="scrollToSection('webInfo1')">成员信息</button>
+      <button @click="scrollToSection('team-container')">成员信息</button>
     </div>
 
     <h2>🌐 网站访问次数：{{ views }} 次</h2>
     <div id="webInfo0" class="webInfo0">
       <h2>✨ 关于网站</h2>
-      <div class="Info0" v-html="Info"></div>
-  
       <!-- 在此添加新的文本内容 -->
       <p>我们是一个致力于搜集并挑选AI前沿科研成果的网站，致力于加强成果共享，尽力帮助需要的人节省检索的时间。</p>
     </div>
@@ -112,6 +100,7 @@ export default {
             <li class="teamwork">{{ downloadSrc[2].title }}</li>
           </a>
         </div>
+
         <div class="member-btns">
           <a v-for="(item, index) in downloadSrc.slice(0, 2)" :key="index" :href="item.link" download>
             <li>{{ item.title }}</li>
@@ -123,31 +112,47 @@ export default {
       </div>
     </div>
 
-
-    <div id="webInfo1" class="webInfo1">
-      <div class="members-container">
-        <MenberBox :fullname="name1"></MenberBox>
+    <div id="team-container" class="team-container">
+      <h2>🌟 成员信息</h2>
+      <div class="members">
+        <!-- 成员 1 -->
+        <MContainer
+          fullname="崔交军"
+          studentId="20240001"
+          task="负责前端开发"
+          email="cuijiaojun@example.com"
+          github="https://github.com/cuijiaojun"
+          imageSrc="../pic/member1.jpg"
+        />
+        <!-- 成员 2 -->
+        <MContainer
+          fullname="高艺轩"
+          studentId="20240002"
+          task="负责后端开发"
+          email="gaoyixuan@example.com"
+          github="https://github.com/gaoyixuan"
+          imageSrc="../pic/member2.jpg"
+        />
+        <!-- 成员 3 -->
+        <MContainer
+          fullname="李嘉桐"
+          studentId="20240003"
+          task="负责数据库设计"
+          email="lijiatong@example.com"
+          github="https://github.com/lijiatong"
+          imageSrc="../pic/member3.jpg"
+        />
+        <!-- 成员 4 -->
+        <MContainer
+          fullname="杨峥芃"
+          studentId="20240004"
+          task="负责测试与部署"
+          email="yangzhengpeng@example.com"
+          github="https://github.com/yangzhengpeng"
+          imageSrc="member4.jpg"
+        />
       </div>
     </div>
-
-    <div class="webInfo2">
-      <div class="members-container">
-        <MenberBox :fullname="name2"></MenberBox>
-      </div>
-    </div>
-
-    <div class="webInfo3">
-      <div class="members-container">
-        <MenberBox :fullname="name3"></MenberBox>
-      </div>
-    </div>
-
-    <div class="webInfo4">
-      <div class="members-container">
-        <MenberBox :fullname="name4"></MenberBox>
-      </div>
-    </div>
-
     <el-backtop :right="200" :bottom="100" />
   </div>
 </template>
@@ -272,6 +277,10 @@ html body .el-menu .el-menu-item.is-active {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+.webmem {
+  text-align: center; /* 居中文本 */
+}
+
 .breadcrumb button:hover {
   background: linear-gradient(45deg, #008c9e, #00e5ff);
   transform: scale(1.05);
@@ -352,8 +361,8 @@ h2 {
   align-items: center;
   list-style: none;
   font-size: 3vh;
-  height: 125px;  /* 增大为原来的1.25倍 */
-  width: 125px;   /* 增大为原来的1.25倍 */
+  height: 125px;  
+  width: 125px;   
   background-color: #00e5ff;
   border-radius: 50%;
   color: white;
@@ -361,9 +370,20 @@ h2 {
 }
 
 .teamwork:hover {
-  transform: scale(1.25);  /* 悬停时按钮增大1.25倍 */
+  transform: scale(1.25);  
 }
 
+.team-container {
+  text-align: center;
+}
+
+.members {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin-top: 20px;
+}
 
 .member-btns {
   display: flex;
@@ -392,7 +412,7 @@ h2 {
   transform: scale(1.2);
 }
 
-.webInfo1, .webInfo2 {
+.webInfo1, .webInfo2, .webInfo3, .webInfo4 {
   display: flex;
   margin-top: 10vh;
   margin-bottom: 10vh;
@@ -404,13 +424,29 @@ h2 {
 .members-container {
   display: flex;
   justify-content: center; /* 水平居中 */
-  width: 100%;
-  margin-bottom: 20px; /* 每个成员之间添加间隔 */
+  flex-wrap: wrap; /* 允许内容换行 */
+  gap: 30px; /* 设置容器内元素之间的统一间隔 */
+  width: 90%; /* 容器宽度扩大 */
+  margin: 0 auto; /* 水平居中 */
+  padding: 20px; /* 添加内边距，增加动态展示空间 */
+  box-sizing: border-box;
+  transition: all 0.3s ease; /* 添加动态效果 */
 }
 
-/* 若有必要，可以调整单个成员卡片的大小 */
+/* 单个成员卡片样式 */
 .members-container .card {
-  width: 400px;
-  height: 350px;
+  flex: 0 1 900px; /* 卡片宽度自适应，最大宽度450px */
+  height: 400px; /* 调整高度 */
+  margin: 10px; /* 增加卡片之间的间隔 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加阴影，增强视觉效果 */
+  border-radius: 10px; /* 卡片圆角 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 添加动态效果 */
 }
+
+/* 卡片悬停效果 */
+.members-container .card:hover {
+  transform: translateY(-10px); /* 悬浮时卡片上移 */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); /* 悬浮时阴影变大 */
+}
+
 </style>
