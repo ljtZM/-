@@ -33,40 +33,19 @@
         </p>
       </div>
       
-      <div class="section1">
-        <p>
-          网站已经被访问了 {{ views }} 次，感谢您的宣传！
-        </p>
-      </div>
      </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   name: 'ProjectIntro',
   data() {
     return {
       backgroundImage: require('@/assets/imgs/7.png'), // 使用 require 动态引入背景图片
-      views: 0 // 初始化 views 变量
     };
   }, // 在 data() 和 methods 之间加上逗号
-  mounted() {
-    this.checkviews()// 在组件挂载后发起 API 请求
-  },
-  methods: {
-    checkviews() {
-      axios.post('http://localhost:8080/api/checkwebviews')
-        .then((response) => {
-          this.views = response.data.views; //将获取到的数据存储到views
-        })
-        .catch((error) => {
-          console.error('请求失败', error);
-        });
-    }
-  }
 }
 </script>
 
@@ -84,8 +63,8 @@ export default {
 .bordered-text {
   border: 2px solid #00bfae; /* 设置边框颜色和宽度 */
   border-radius: 15px; /* 设置圆角 */
-  padding: 30px; /* 添加内边距 */
-  margin: 5px auto 0 auto; /* 上边距设置为40px，下边距自动居中 */
+  padding: 40px; /* 添加内边距 */
+  margin: 30px auto 0 auto; /* 上边距设置为40px，下边距自动居中 */
   max-width: 1200px; /* 设置最大宽度，避免内容过宽 */
   background-color: rgba(0, 0, 0, 0.6); /* 半透明背景，提升可读性 */
 }
@@ -115,13 +94,6 @@ export default {
 
 .section {
   margin-bottom: 40px;
-}
-
-.section1 {
-  text-align: center;
-  margin-bottom: 40px;
-  color:	#458B00;
-  font-size: 22px;
 }
 
 .section h2 {
