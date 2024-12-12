@@ -1,13 +1,17 @@
 <template>
   <div class="profile-container">
     <!-- 上方导航栏 -->
+    <!-- 上方导航栏 -->
     <div class="navbar">
+      <div class="logo">
+        <span class="logo-text">个人主页</span>
+        <span class="separator"></span>  <!-- 分隔符 -->
+      </div>
       <el-menu :default-active="active" class="menu" mode="horizontal">
         <el-menu-item index="home" @click="goToHomePage">首页</el-menu-item>
         <el-menu-item index="aboutUs" @click="goToAboutUsPage">关于我们</el-menu-item>
         <el-menu-item index="projectIntro" @click="goToProjectIntroPage">项目介绍</el-menu-item>
         <el-menu-item index="profile" @click="goToProfilePage">个人</el-menu-item>
-        
       </el-menu>
     </div>
 
@@ -142,69 +146,142 @@ export default {
 <style scoped>
 /* 页面布局 */
 .profile-container {
-  padding: 20px;
   background-color: #f4f7fc;
+  min-height: 100vh; /* 确保容器至少占满整个视口高度 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 导航栏样式 */
+/* 上方导航栏样式 */
 .navbar {
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #3b5998, #8b9dc3);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-left: 100px; /* 调整左右间距 */
+  margin-right: 400px; /* 调整左右间距 */
+}
+
+.logo-text {
+  font-size: 36px; /* 放大2024 */
+  font-weight: bold;
+  margin-right: 10px;
+  color: #ff9900;
+  font-family: 'Special Elite', cursive; /* 使用特别字体 */
+}
+
+.election-text {
+  font-size: 34px; 
+  color: white; /* 字体颜色 */
+  font-family: 'Special Elite', cursive; /* 使用特别字体 */
+  font-weight: bold; /* 加粗字体 */
+}
+
+/* 英文副标题样式 */
+.subtitle {
+  font-size: 24px;  /* 英文副标题较小 */
+  color: rgba(255, 255, 255, 0.7);  /* 字体颜色为白色并带有透明度，0.7为微透明 */
+  margin-left: 5px; /* 左侧间距 */
+  font-family: 'Arial', sans-serif; /* 英文字体 */
+  font-weight: lighter;  /* 字体更轻 */
+  font-style: italic; /* 斜体 */
 }
 
 .menu {
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  margin-right: 5px; /* 调整右侧间距 */
+}
+
+/* 定义全局样式，确保菜单和菜单项背景透明 */
+html body .el-menu {
+  background-color: transparent !important;  /* 设置菜单背景透明 */
+  border: none !important;  /* 去掉边框 */
+  font-size: 26px;  /* 设置菜单的字体大小 */
+}
+
+/* 对菜单项进行处理，去掉白色背景 */
+html body .el-menu .el-menu-item {
+  background-color: transparent !important;  /* 设置菜单项背景透明 */
+  color: white !important;  /* 设置字体颜色为白色 */
+  font-size: 26px;  /* 设置菜单项的字体大小 */
+  transition: background-color 0.3s ease, color 0.3s ease; /* 平滑的背景色和字体色变化 */
+}
+
+/* 悬停时和选中时背景透明 */
+html body .el-menu .el-menu-item:hover,
+html body .el-menu .el-menu-item.is-active {
+  background-color: transparent !important;  /* 悬停和选中时背景透明 */
+  color: #ff9900 !important;  /* 设置字体颜色为橙色 */
 }
 
 /* 个人信息展示区域 */
 .profile-box {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  max-height: 450px;
+  margin-top: 80px;
+  background-color: #f9fafb;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%; /* 确保宽度占满父容器 */
+  flex: 1; /* 让 profile-box 占据剩余空间 */
 }
 
 .profile-header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .avatar {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  margin-bottom: 10px;
+  object-fit: cover;
+  margin-bottom: 15px;
 }
 
 .profile-header h2 {
-  font-size: 24px;
+  font-size: 28px;
   margin: 0;
+  color: #333;
 }
 
 .email {
-  font-size: 16px;
+  font-size: 18px;
   color: #777;
 }
 
 /* 按钮样式 */
 .actions {
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  flex-direction: column; /* 将按钮竖直排列 */
+  align-items: center;
+  gap: 15px; /* 增加按钮之间的间距 */
+  margin-top: 30px;
 }
 
 .action-btn {
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #ffffff;
-  background-color: #409EFF;
+  padding: 12px 24px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #409eff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%; /* 确保按钮宽度一致 */
+  max-width: 300px; /* 最大宽度限制 */
 }
 
 .action-btn:hover {
@@ -233,39 +310,50 @@ export default {
 }
 
 .modal-content {
-  background-color: white;
-  padding: 30px;
-  border-radius: 10px;
-  width: 400px;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  width: 450px;
   max-width: 80%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .modal h3 {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: 24px;
+  color: #333;
 }
 
 .input-field {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
+  padding: 12px;
+  margin-bottom: 20px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
 }
 
 .input-field:focus {
-  border-color: #409EFF;
+  border-color: #409eff;
+  outline: none;
 }
 
 .close-btn {
   background-color: #ccc;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-top: 10px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 .close-btn:hover {
   background-color: #999;
 }
+
+
+
+
 </style>

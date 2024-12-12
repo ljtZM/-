@@ -78,11 +78,13 @@ $config = [
                 'api/getpersonalinfo' => 'api/getpersonalinfo',
 
                 
-
                 'Users/index' => 'users/index',
-                'articles/index' => 'article/index',
+                'article/index' => 'article/index',
                 'articlecomments/index' => 'articlecomments/index',
-                'articlelikes/index' => 'articlelikes/index'
+                'articlelikes/index' => 'articlelikes/index',
+                'videos/index' => 'video/index',
+                'videocomments/index' => 'videocomments/index',
+                'videolikes/index' => 'videolikes/index'
             ],
         ],  
 

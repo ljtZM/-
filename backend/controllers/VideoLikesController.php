@@ -71,7 +71,7 @@ class VideoLikesController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'LikeID' => $model->id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -94,7 +94,7 @@ class VideoLikesController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'LikeID' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -125,7 +125,7 @@ class VideoLikesController extends Controller
      */
     protected function findModel($LikeID)
     {
-        if (($model = VideoLikes::findOne(['LikeID' => $id])) !== null) {
+        if (($model = VideoLikes::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var app\models\VideoLikesSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Video Likes';
+$this->title = 'VideoLikes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="video-likes-index">

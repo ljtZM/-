@@ -1,19 +1,24 @@
 <template>
   <div class="page-container">
-    <!-- 上方导航栏 -->
-    <div class="navbar">
+     <!-- 上方导航栏 -->
+     <div class="navbar">
+      <div class="logo">
+        <span class="logo-text">文章专区</span>
+        <span class="separator"></span>  <!-- 分隔符 -->
+      </div>
       <el-menu :default-active="active" class="menu" mode="horizontal">
         <el-menu-item index="home" @click="goToHomePage">首页</el-menu-item>
         <el-menu-item index="aboutUs" @click="goToAboutUsPage">关于我们</el-menu-item>
         <el-menu-item index="projectIntro" @click="goToProjectIntroPage">项目介绍</el-menu-item>
         <el-menu-item index="profile" @click="goToProfilePage">个人</el-menu-item>
+        <el-menu-item index="adminlogin" @click="goToAdminLogin">管理员登录</el-menu-item>
       </el-menu>
     </div>
-    
-    <div class="header">
+
+    <!-- <div class="header">
       <h1 class="page-title">文章列表</h1>
     </div>
-    
+     -->
     <div class="content-container">
       <div class="article-grid">
         <router-link 
@@ -49,7 +54,7 @@
       </div>
     </div>
   </div>
-  <el-backtop :right="100" :bottom="100" />
+  <el-backtop :right="50" :bottom="100" />
 </template>
 
 <script>
@@ -143,9 +148,11 @@ export default {
 
 <style scoped>
 .page-container {
-  min-height: 100vh;
-  background-color: #f5f5f5;
-  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: linear-gradient(135deg, #8b9dc3,#3b5998);
 }
 
 .header {
@@ -162,8 +169,11 @@ export default {
 }
 
 .content-container {
+  display: flex;
   max-width: 1200px;
-  margin: 0 auto;
+  width:100%;
+  margin: 30px;
+  
 }
 
 .article-grid {
@@ -194,6 +204,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: aliceblue;
 }
 
 .card-header {
@@ -288,5 +299,79 @@ export default {
   .card-content {
     padding: 15px;
   }
+}
+/* 上方导航栏样式 */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  /*background: linear-gradient(135deg, #2e8b57, #98fb98); 绿色渐变 */
+  background: linear-gradient(135deg, #3b5998, #8b9dc3);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-left: 100px; /* 调整左右间距 */
+  margin-right: 400px; /* 调整左右间距 */
+}
+
+.logo-text {
+  font-size: 36px; /* 放大2024 */
+  font-weight: bold;
+  margin-right: 10px;
+  /*color: #8470FF;  稍微深一点的蓝色 */
+  color: #ff9900;
+  font-family: 'Special Elite', cursive; /* 使用特别字体 */
+}
+
+.election-text {
+  font-size: 34px; 
+  color: white; /* 字体颜色 */
+  font-family: 'Special Elite', cursive; /* 使用特别字体 */
+  font-weight: bold; /* 加粗字体 */
+}
+
+/* 英文副标题样式 */
+.subtitle {
+  font-size: 24px;  /* 英文副标题较小 */
+  color: rgba(255, 255, 255, 0.7);  /* 字体颜色为白色并带有透明度，0.7为微透明 */
+  margin-left: 5px; /* 左侧间距 */
+  font-family: 'Arial', sans-serif; /* 英文字体 */
+  font-weight: lighter;  /* 字体更轻 */
+  font-style: italic; /* 斜体 */
+}
+
+
+.menu {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  margin-right: 5px; /* 调整右侧间距 */
+}
+
+/* 定义全局样式，确保菜单和菜单项背景透明 */
+html body .el-menu {
+  background-color: transparent !important;  /* 设置菜单背景透明 */
+  border: none !important;  /* 去掉边框 */
+  font-size: 26px;  /* 设置菜单的字体大小 */
+}
+
+/* 对菜单项进行处理，去掉白色背景 */
+html body .el-menu .el-menu-item {
+  background-color: transparent !important;  /* 设置菜单项背景透明 */
+  color: white !important;  /* 设置字体颜色为白色 */
+  font-size: 26px;  /* 设置菜单项的字体大小 */
+  transition: background-color 0.3s ease, color 0.3s ease; /* 平滑的背景色和字体色变化 */
+}
+
+/* 悬停时和选中时背景透明 */
+html body .el-menu .el-menu-item:hover,
+html body .el-menu .el-menu-item.is-active {
+  background-color: transparent !important;  /* 悬停和选中时背景透明 */
+  color: #ff9900 !important;  /* 设置字体颜色为白色 */
+  font-size: 26px;  /* 确保悬停和选中时字体大小保持一致 */
 }
 </style>

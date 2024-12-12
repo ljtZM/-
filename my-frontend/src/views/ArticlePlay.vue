@@ -212,23 +212,24 @@ export default {
 
 .article-container {
   min-height: 100vh;
+  width:100%;
   padding: 40px 20px;
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #8b9dc3,#3b5998);
   display: flex;
   justify-content: center;
 }
 
 .article-wrapper {
-  max-width: 800px;
+  max-width: 1200px;
   width: 100%;
 }
 
 .article-content {
-  background: white;
   border-radius: 8px;
   padding: 30px;
   margin-bottom: 20px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  background-color: aliceblue;
 }
 
 .article-title {
@@ -286,7 +287,7 @@ export default {
 }
 
 .comment-input {
-  width: 100%;
+  width: 95%;
   min-height: 100px;
   padding: 15px;
   border: 1px solid #ddd;
@@ -303,6 +304,14 @@ export default {
   border-radius: 20px;
   float: right;
   transition: background-color 0.3s;
+  margin-top: 5px; /* 增加上边距 */
+  margin-bottom: 10px; /* 增加下边距 */
+}
+
+.comment-form::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .submit-btn:hover {
@@ -310,7 +319,7 @@ export default {
 }
 
 .comment-item {
-  padding: 20px;
+  padding: 5px;
   border-bottom: 1px solid #eee;
 }
 
@@ -341,6 +350,7 @@ export default {
 
 @media (max-width: 768px) {
   .article-container {
+  width:100%;
     padding: 20px 10px;
   }
 

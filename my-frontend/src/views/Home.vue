@@ -165,7 +165,8 @@ export default {
 .logo {
   display: flex;
   align-items: center;
-  margin-left: 320px; /* 调整左右间距 */
+  margin-left: 100px; /* 调整左右间距 */
+  margin-right: 150px; /* 调整左右间距 */
 }
 
 .logo-text {
