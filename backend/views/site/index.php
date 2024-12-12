@@ -78,6 +78,9 @@ $this->title = 'Yii2后端';
         <a href="<?= \Yii::$app->urlManager->createUrl(['article/index']) ?>" class="btn btn-primary">articles</a>
         <a href="<?= \Yii::$app->urlManager->createUrl(['articlecomments/index']) ?>" class="btn btn-primary">articlecomments</a>
         <a href="<?= \Yii::$app->urlManager->createUrl(['articlelikes/index']) ?>" class="btn btn-primary">articlelikes</a>
+        <a href="<?= \Yii::$app->urlManager->createUrl(['video/index']) ?>" class="btn btn-primary">videos</a>
+        <a href="<?= \Yii::$app->urlManager->createUrl(['videocomments/index']) ?>" class="btn btn-primary">videocomments</a>
+        <a href="<?= \Yii::$app->urlManager->createUrl(['videolikes/index']) ?>" class="btn btn-primary">videolikes</a>
     </div>
 
 </div>

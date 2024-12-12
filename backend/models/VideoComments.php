@@ -37,7 +37,7 @@ class VideoComments extends ActiveRecord
             [['comment'], 'string'],
             [['comment_date'], 'safe'],
             [['username'], 'string', 'max' => 255],
-            [['video_id'], 'exist', 'skipOnError' => true, 'targetClass' => Video::class, 'targetAttribute' => ['video_id' => 'id']],
+            [['video_id'], 'exist', 'skipOnError' => true, 'targetClass' => Videos::class, 'targetAttribute' => ['video_id' => 'id']],
             [['username'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['username' => 'Username']],
         ];
     }
