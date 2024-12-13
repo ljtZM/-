@@ -68,7 +68,7 @@ export default {
     async registerUser(username, email, password) {
       try {
         console.log("Sending register request with data:", { username, email, password });
-        const response = await axios.post("http://localhost:8080/api/auth/register", {
+        const response = await axios.post("http://localhost:8081/api/auth/register", {
           username,
           email,
           password
@@ -87,7 +87,7 @@ export default {
     },
     async loginUser(username, password) {
       try {
-        const response = await axios.post("http://localhost:8080/api/auth/login", {
+        const response = await axios.post("http://localhost:8081/api/auth/login", {
           username,
           password
         });

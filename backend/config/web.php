@@ -47,12 +47,36 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'api/auth/register' => 'api/auth/register',
-                'api/auth/login' => 'api/auth/login',
+                'api/adminlogin' => 'api/adminlogin',
+
+                'api/login' => 'api/authenticate',
+                'api/signup' => 'api/register',
+
+                'api/getarticle' => 'api/getarticle',
+                'api/getarticlepagecount' => 'api/getarticlepagecount',
+                'api/getarticlecomment' => 'api/getarticlecomment',
+                'api/addarticlecomment' => 'api/addarticlecomment',
+                'api/getarticlelikes' => 'api/getarticlelikes',
+                'api/addarticlelikes' => 'api/addarticlelikes',
+
+                'api/addwebviews' => 'api/addwebviews',
+                'api/checkwebviews' => 'api/checkwebviews',
+                
+                'api/getvideo' => 'api/getvideo',
                 'api/getvideocomments' => 'api/getvideocomments',
                 'api/addvideocomments' => 'api/addvideocomments',
                 'api/getvideolikes' => 'api/getvideolikes',
                 'api/addvideolikes' => 'api/addvideolikes',
+
+                'api/getclick' => 'api/getclick',
+                'api/addclick' => 'api/addclick',
+
+                'api/getpersonalinfo' => 'api/getpersonalinfo',
+                
+                'Users/index' => 'users/index',
+                'article/index' => 'article/index',
+                'articlecomments/index' => 'articlecomments/index',
+                'articlelikes/index' => 'articlelikes/index',
             ],
         ],  
     ],

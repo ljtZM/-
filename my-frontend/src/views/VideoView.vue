@@ -127,7 +127,7 @@
       };
 
       const goToVideo = (videoId) => {
-        router.push({ name: 'Video', params: { id: videoId } });
+        router.push({ name: 'VideoPlay', params: { id: videoId } });
       };
 
       const toggleSidebar = () => {

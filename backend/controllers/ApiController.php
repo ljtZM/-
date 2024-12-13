@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use Yii;
 use yii\web\Controller;
 use app\models\Users;
 use app\models\Article;
@@ -336,38 +337,43 @@ class ApiController extends Controller
         return $likes->likes;
     }
 
-    //增加视频点赞数
     public function actionAddvideolikes()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        // 使用post方法获取请求参数
-        $videoID = \Yii::$app->request->post('video_id');
-
-        // 查找或创建点赞记录
+    
+        $bodyParams = \Yii::$app->request->getBodyParams();
+        $videoID = $bodyParams['video_id'] ?? null;
+        $num = $bodyParams['num'] ?? null;
+        $username = $bodyParams['username'] ?? null;
+        
+        if ($videoID === null || $num === null || $username === null) {
+            return [
+                'status' => -1,
+                'message' => '请求参数不完整',
+                'received_parameters' => $bodyParams // Return for debugging
+            ];
+        }
+        
         $likes = VideoLikes::find()
             ->where(['video_id' => $videoID])
             ->one();
+        
         if ($likes === null) {
-            // 如果没有找到，创建新的记录
             $likes = new VideoLikes();
             $likes->video_id = $videoID;
             $likes->likes = 0;
         }
-
-        // 更新点赞数
-        $likes->likes += 1;
-        if (!$likes->save()) {
-            Yii::error('Failed to save VideoLikes: ' . json_encode($likes->errors), 'video_id');
-        }
         
-        if ($likes->save()) {
-            return ['status' => 1, 'message' => 'Likes updated successfully', 'likes' => $likes->likes];
+        $likes->likes += $num;
+        if ($likes->save(false)) {
+            return ['status' => 1, 'message' => '点赞成功', 'likes' => $likes->likes];
         } else {
-            return ['status' => -1, 'message' => 'Failed to update likes'];
+            Yii::error('Failed to save VideoLikes: ' . json_encode($likes->errors), __METHOD__);
+            return ['status' => -1, 'message' => '点赞失败'];
         }
     }
-
+    
+    
     //添加视频评论
     public function actionAddvideocomments()
     {
@@ -390,4 +396,27 @@ class ApiController extends Controller
             return ['status' => -1, 'message' => 'Failed to add comment'];
         }
     }
+
+    public function actionGetvideo()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $id = \Yii::$app->request->get('video_id');
+
+        if ($id !== null) {
+            // 查询单篇文章
+            $video = Videos::find()->select(['id', 'title', 'url', 'created_at', 'updated_at'])
+                ->where(['id' => $id])
+                ->one();
+
+            // 如果找到该文章，则返回
+            if ($video !== null) {
+                return $video;
+            } else {
+                // 如果找不到文章，返回错误消息
+                return ['error' => 'Video not found'];
+            }
+        }
+    }
 }
+
