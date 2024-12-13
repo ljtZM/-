@@ -393,4 +393,25 @@ class ApiController extends Controller
     }
 
 
+    public function actionGetvideo()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $id = \Yii::$app->request->get('video_id');
+
+        if ($id !== null) {
+            // 查询单篇文章
+            $video = Videos::find()->select(['id', 'title', 'url', 'created_at', 'updated_at'])
+                ->where(['id' => $id])
+                ->one();
+
+            // 如果找到该文章，则返回
+            if ($video !== null) {
+                return $video;
+            } else {
+                // 如果找不到文章，返回错误消息
+                return ['error' => 'Video not found'];
+            }
+        }
+    }
 }

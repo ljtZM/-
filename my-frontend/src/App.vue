@@ -9,25 +9,22 @@ import axios from 'axios';
 export default {
   name: 'App',
   mounted() {
-    this.AddWebview()
+    // 检查 sessionStorage 是否已经发送过浏览量请求
+    if (!sessionStorage.getItem('webviewSent')) {
+      this.AddWebView();
+      sessionStorage.setItem('webviewSent', 'true'); // 标记浏览量已增加
+    } else {
+      console.log("浏览量已增加，跳过");
+    }
   },
   methods: {
-    AddWebview() {
-      axios.post('http://localhost:8080/api/addwebviews', {}, {
-    headers: {
-        'Content-Type': 'application/json'
+    AddWebView() {
+      axios
+        .post('http://localhost:8080/api/addwebviews')
+        .catch((error) => {
+          console.error('浏览量增加失败', error);
+        });
     },
-    cache: 'no-store'  // 禁用缓存
-})
-.then(response => {
-    console.log(response.data.message);
-})
-.catch(error => {
-    console.error("请求失败", error.response);
-});
-
-
-    }
-  }
+  },
 };
 </script>

@@ -200,20 +200,22 @@ export default {
 </script>
 
 <style scoped>
+
 .form-box {
-  background: white;
+  background: #ffffff;
   padding: 30px;
-  width: 80%;
-  height: auto;
-  margin: 50px auto;
-  border: 1px solid #e8e8e8;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  width: 90%;
   max-width: 400px;
+  margin: 50px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 增加阴影 */
+  border: none;
+  transition: all 0.3s ease;
 }
 
 .toggle-buttons {
   display: flex;
+  justify-content: space-between;
   margin-bottom: 20px;
   gap: 10px;
 }
@@ -224,13 +226,17 @@ export default {
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   color: #666;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
 }
 
 .toggle-btn.active {
   color: #1890ff;
   border-bottom: 2px solid #1890ff;
+  font-weight: bold;
 }
 
 .form-group {
@@ -245,29 +251,42 @@ input {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
 }
 
 input:focus {
   outline: none;
   border-color: #1890ff;
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.2);
+  transform: translateY(-2px); /* 输入框上浮 */
 }
 
+/* 登录/注册按钮样式 */
 .submit-btn {
-  width: 90%;
-  margin: 10px auto;
-  display: block;
-  padding: 12px;
+  width: 100%;
+  padding: 14px;
   background-color: #1890ff;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
 }
 
 .submit-btn:hover {
   background-color: #40a9ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+}
+
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .form {
@@ -332,6 +351,15 @@ input {
 input:focus {
   transform: translateY(-2px);
   box-shadow: 0 2px 8px rgba(24, 144, 255, 0.1);
+}
+
+
+input:valid {
+  border-color: #52c41a;
+}
+
+input:focus::placeholder {
+  color: transparent;
 }
 
 /* 按钮动画 */

@@ -41,6 +41,36 @@ export default {
     this.checkviews()
   },
   methods: {
+    goToAdminLogin() {
+      this.$router.push('/admin');  // 跳转到首页
+    },
+    goToHomePage() {
+      this.$router.push('/');  // 跳转到首页
+    },
+    goToAboutUsPage() {
+      this.$router.push('/aboutUs');  // 跳转到关于我们页面
+    },
+    goToProjectIntroPage() {
+      this.$router.push('/projectIntro');  // 跳转到项目介绍页面
+    },
+    goToProfilePage() {
+      const username = sessionStorage.getItem("Username");
+      if (!username) {
+        this.$confirm("您尚未登录，是否跳转到登录页面？", "提示", {
+          confirmButtonText: "确认",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+          .then(() => {
+            this.$router.push("/login"); // 跳转到登录页面
+          })
+          .catch(() => {
+            this.$message.info("已取消操作");
+          });
+      } else {
+        this.$router.push("/profile"); // 跳转到个人页面
+      }
+    },
     checkviews() {
       axios.post('http://localhost:8080/api/checkwebviews')
         .then((response) => {
@@ -65,16 +95,15 @@ export default {
     <!-- 上方导航栏 -->
     <div class="navbar">
       <div class="logo">
-        <span class="logo-text">2024</span>
-        <span class="election-text">AI前沿动态</span>
+        <span class="logo-text">团队主页</span>
         <span class="separator"></span>  <!-- 分隔符 -->
-    <span class="subtitle">AI Trends</span>  <!-- 英文副标题 -->
       </div>
       <el-menu :default-active="active" class="menu" mode="horizontal">
         <el-menu-item index="home" @click="goToHomePage">首页</el-menu-item>
         <el-menu-item index="aboutUs" @click="goToAboutUsPage">关于我们</el-menu-item>
         <el-menu-item index="projectIntro" @click="goToProjectIntroPage">项目介绍</el-menu-item>
         <el-menu-item index="profile" @click="goToProfilePage">个人</el-menu-item>
+        <el-menu-item index="adminlogin" @click="goToAdminLogin">管理员登录</el-menu-item>
       </el-menu>
     </div>
     <!-- 面包栏 -->
@@ -186,7 +215,8 @@ export default {
 .logo {
   display: flex;
   align-items: center;
-  margin-left: 320px; /* 调整左右间距 */
+  margin-left: 100px; /* 调整左右间距 */
+  margin-right: 400px; /* 调整左右间距 */
 }
 
 .logo-text {
@@ -205,20 +235,6 @@ export default {
   font-weight: bold; /* 加粗字体 */
 }
 
-/* 倾斜且加长的渐变分隔符 */
-.separator {
-  display: inline-block;
-  width: 6px;  /* 设置较小的宽度 */
-  height: 80px;  /* 加长分隔符 */
-  /*background: linear-gradient(to bottom, #ff7e5f, #feb47b, #32cd32, #2575fc);  渐变色包含绿色 */
-   background: linear-gradient(to bottom, #ff7e5f, #feb47b, #6a11cb, #2575fc); 
-  border-radius: 2px;  /* 圆角效果 */
-  margin: 0 15px;  /* 分隔符的左右间距 */
-  transform: rotate(8deg);  /* 倾斜角度 */
-  transform-origin: center;  /* 设置倾斜原点为中间 */
-}
-
-
 /* 英文副标题样式 */
 .subtitle {
   font-size: 24px;  /* 英文副标题较小 */
@@ -236,6 +252,7 @@ export default {
   justify-content: center;
   margin-right: 5px; /* 调整右侧间距 */
 }
+
 /* 定义全局样式，确保菜单和菜单项背景透明 */
 html body .el-menu {
   background-color: transparent !important;  /* 设置菜单背景透明 */
@@ -243,6 +260,7 @@ html body .el-menu {
   font-size: 26px;  /* 设置菜单的字体大小 */
 }
 
+/* 对菜单项进行处理，去掉白色背景 */
 html body .el-menu .el-menu-item {
   background-color: transparent !important;  /* 设置菜单项背景透明 */
   color: white !important;  /* 设置字体颜色为白色 */
@@ -257,7 +275,6 @@ html body .el-menu .el-menu-item.is-active {
   color: #ff9900 !important;  /* 设置字体颜色为白色 */
   font-size: 26px;  /* 确保悬停和选中时字体大小保持一致 */
 }
-
 .breadcrumb {
   display: flex;
   gap: 30px;

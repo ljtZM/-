@@ -34,9 +34,9 @@ const routes = [
         name: 'admin',
         component: () => import('../views/adminLogin.vue'),
         meta: {
-          showNavBar: false
+            showNavBar: false
         }
-      },
+    },
     {
         path: '/articles',
         name: 'article',
@@ -54,22 +54,16 @@ const routes = [
         }
     },
     {
-        path: '/videos',
-        name: 'Gallery',
-        component: () => import('../views/Gallery.vue'),
-        meta: {
-            showNavBar: true
-        }
+        path: '/videoview',
+        name: 'VideoView',
+        component: () => import('../views/VideoView.vue'),
     },
     {
         path: '/video/:id',
-        name: 'Video',
-        component: () => import('../views/Video.vue'),
-        meta: {
-            showNavBar: true
-        }
+        name: 'VideoPlay',
+        component: () => import('../views/VideoPlay.vue'),
+        props: true
     }
-
 ];
 
 const router = createRouter({

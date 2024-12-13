@@ -7,7 +7,7 @@
 
     <div class="article-wrapper">
       <!-- 文章主体内容 -->
-      <div class="article-content">
+      <div class="article-content fade-in">
         <h1 class="article-title">{{ title }}</h1>
         <!-- 显示作者信息 -->
         <div class="article-author">{{ author }}</div>
@@ -26,7 +26,7 @@
       </div>
 
       <!-- 评论区域 -->
-      <div class="comment-section">
+      <div class="comment-section fade-in">
         <!-- 评论输入框 -->
         <div class="comment-form">
           <textarea 
@@ -83,8 +83,7 @@ export default {
     methods: {
        // 返回按钮点击事件
       goBack() {
-        // 跳转到你想去的页面
-        this.$router.push({ name: 'article' }); // targetPageName 是你要跳转的页面名称
+        this.$router.push({ name: 'article' });
       },
       getUrl() {
           const id = this.$route.params.id
@@ -107,7 +106,7 @@ export default {
           axios
               .post('http://localhost:8080/api/getarticlelikes?article_id=' + id)
               .then((response) => {
-                  this.likeNum = response.data // 获取初始点赞数
+                  this.likeNum = response.data
               })
               .catch((error) => {
                 console.error('请求数据失败', error)
@@ -118,29 +117,28 @@ export default {
           axios
               .post('http://localhost:8080/api/getarticlelikes?article_id=' + id)
               .then((response) => {
-                  this.likeNum = response.data // 获取初始点赞数
+                  this.likeNum = response.data
               })
               .catch((error) => {
                 console.error('请求数据失败', error)
               })
       },
       getComments() {
-        const id = this.$route.params.id;  // 获取文章的 ID
+        const id = this.$route.params.id;  
         axios
-            .post(`http://localhost:8080/api/getarticlecomment?article_id=${id}`)  // 使用反引号
+            .post(`http://localhost:8080/api/getarticlecomment?article_id=${id}`)
             .then((response) => {
-                console.log('评论数据:', response.data);  // 在控制台打印返回的评论数据
                 if (response.data && Array.isArray(response.data)) {
-                    this.messages = response.data;  // 将返回的评论数据存入 messages 数组
+                    this.messages = response.data;
                 } else {
                     console.error('评论数据格式不正确');
                 }
             })
             .catch((error) => {
-                console.error('请求数据失败', error);  // 错误处理
+                console.error('请求数据失败', error);
             });
     },
-      submitMessage() {
+    submitMessage() {
         const username = sessionStorage.getItem("Username");
         if (!username) {
           this.$confirm("您尚未登录，是否跳转到登录页面？", "提示", {
@@ -149,7 +147,7 @@ export default {
             type: "warning",
           })
             .then(() => {
-              this.$router.push("/login"); // 跳转到登录页面
+              this.$router.push("/login");
             })
             .catch(() => {
               this.$message.info("已取消操作");
@@ -158,10 +156,8 @@ export default {
           const id = this.$route.params.id;
 
           if (this.message) {
-            const currentDate = new Date().toISOString(); // 获取当前时间，格式为 ISO 8601
-            const url = `http://localhost:8080/api/addarticlecomment?comment_date=${currentDate}&username=${username}&comment=${encodeURIComponent(
-                this.message
-            )}&article_id=${id}`;
+            const currentDate = new Date().toISOString(); 
+            const url = `http://localhost:8080/api/addarticlecomment?comment_date=${currentDate}&username=${username}&comment=${encodeURIComponent(this.message)}&article_id=${id}`;
             axios
                 .post(url)
                 .then((response) => {
@@ -170,7 +166,7 @@ export default {
                         this.$message.error('添加评论失败');
                     } else {
                         this.message = '';
-                        this.getComments();  // 刷新评论列表
+                        this.getComments();  
                     }
                 })
                 .catch((error) => {
@@ -186,9 +182,17 @@ export default {
 }
 </script>
 
-
-
 <style scoped>
+/* 动画效果 */
+.fade-in {
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 /* 返回按钮样式 */
 .back-button-container {
   position: absolute;
@@ -197,24 +201,34 @@ export default {
 }
 
 .back-button {
-  padding: 8px 16px;
-  font-size: 16px;
-  background-color: #409EFF;
+  padding: 10px 20px;
+  font-size: 18px;
+  background: linear-gradient(145deg, #409EFF, #66b3ff); /* 渐变背景色 */
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 25px;  /* 增加圆角 */
   cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* 阴影效果 */
 }
 
 .back-button:hover {
   background-color: #66b3ff;
+  transform: scale(1.05);  /* 鼠标悬停时按钮放大 */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);  /* 鼠标悬停时增加阴影 */
 }
+
+.back-button:focus {
+  outline: none; /* 去除点击后的默认边框 */
+  box-shadow: 0 0 0 4px rgba(64, 158, 255, 0.3);  /* 点击时显示聚焦效果 */
+}
+
 
 .article-container {
   min-height: 100vh;
-  width:100%;
+  width: 100%;
   padding: 40px 20px;
-  background: linear-gradient(135deg, #8b9dc3,#3b5998);
+  background: linear-gradient(135deg, #8b9dc3, #3b5998);
   display: flex;
   justify-content: center;
 }
@@ -229,7 +243,7 @@ export default {
   padding: 30px;
   margin-bottom: 20px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  background-color: aliceblue;
+  background-color: white;
 }
 
 .article-title {
@@ -237,6 +251,11 @@ export default {
   color: #333;
   margin-bottom: 20px;
   text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.article-title:hover {
+  transform: scale(1.05);
 }
 
 .article-body {
@@ -295,6 +314,11 @@ export default {
   margin-bottom: 15px;
   font-size: 14px;
   resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+.comment-input:focus {
+  border-color: #409EFF;
 }
 
 .submit-btn {
@@ -303,7 +327,7 @@ export default {
   padding: 10px 25px;
   border-radius: 20px;
   float: right;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
   margin-top: 5px; /* 增加上边距 */
   margin-bottom: 10px; /* 增加下边距 */
 }
@@ -347,31 +371,4 @@ export default {
   color: #666;
   line-height: 1.6;
 }
-
-@media (max-width: 768px) {
-  .article-container {
-  width:100%;
-    padding: 20px 10px;
-  }
-
-  .article-title {
-    font-size: 24px;
-  }
-
-  .article-content {
-    padding: 20px;
-  }
-
-  .submit-btn {
-    width: 100%;
-  }
-}
-
-  .article-author {
-      font-size: 16px;
-      color: #666;
-      margin-bottom: 15px;
-      font-weight: bold;
-  }
-
-</style> 
+</style>

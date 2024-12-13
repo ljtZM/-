@@ -71,6 +71,7 @@ $config = [
                 'api/addvideocomments' => 'api/addvideocomments',
                 'api/getvideolikes' => 'api/getvideolikes',
                 'api/addvideolikes' => 'api/addvideolikes',
+                
 
                 'api/getclick' => 'api/getclick',
                 'api/addclick' => 'api/addclick',

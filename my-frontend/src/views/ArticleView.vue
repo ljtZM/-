@@ -53,6 +53,10 @@
         />
       </div>
     </div>
+    <!-- 底部 -->
+    <footer class="footer">
+      <p>&copy; 2024 人工智能新闻与视频</p>
+    </footer>
   </div>
   <el-backtop :right="50" :bottom="100" />
 </template>
@@ -72,6 +76,9 @@ export default {
     this.getpage();  // Fetch page count
   },
   methods: {
+    goToAdminLogin() {
+      this.$router.push('/admin');  // 跳转到首页
+    },
     goToHomePage() {
       this.$router.push('/');  // 跳转到首页
     },
@@ -147,6 +154,7 @@ export default {
 </script>
 
 <style scoped>
+
 .page-container {
   display: flex;
   flex-direction: column;
@@ -373,5 +381,12 @@ html body .el-menu .el-menu-item.is-active {
   background-color: transparent !important;  /* 悬停和选中时背景透明 */
   color: #ff9900 !important;  /* 设置字体颜色为白色 */
   font-size: 26px;  /* 确保悬停和选中时字体大小保持一致 */
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
 }
 </style>

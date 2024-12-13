@@ -107,7 +107,7 @@ export default {
       this.$router.push('/articles');
     },
     goToVideoPage() {
-      this.$router.push('/videos');
+      this.$router.push('/videoview');
     },
     goToHomePage() {
       this.$router.push('/');  // 跳转到首页
