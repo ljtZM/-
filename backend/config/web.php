@@ -65,6 +65,8 @@ $config = [
 
                 'api/addwebviews' => 'api/addwebviews',
                 'api/checkwebviews' => 'api/checkwebviews',
+                'api/getmembers' => 'api/getmembers',
+                'api/getdescription' => 'api/getdescription',
                 
                 'api/getvideo' => 'api/getvideo',
                 'api/getvideocomments' => 'api/getvideocomments',
@@ -85,7 +87,10 @@ $config = [
                 'articlelikes/index' => 'articlelikes/index',
                 'videos/index' => 'video/index',
                 'videocomments/index' => 'videocomments/index',
-                'videolikes/index' => 'videolikes/index'
+                'videolikes/index' => 'videolikes/index',
+                'team/index' => 'team/index',
+                'website/index' => 'website/index'
+
             ],
         ],  
 

@@ -1,4 +1,4 @@
-<script>
+<script> 
 import MContainer from '../components/MContainer.vue'
 import axios from 'axios'
 export default {
@@ -6,10 +6,8 @@ export default {
     return {
       views: 0,
       Info: "",
-      name1: '崔交军',
-      name2: '高艺轩',
-      name3: '李嘉桐',
-      name4: '杨峥芃',
+      members: [], // Store member data
+      websiteDescription: "",
       downloadSrc: [
         {
           title: '崔交军',
@@ -38,11 +36,13 @@ export default {
     MContainer
   },
   mounted() {
-    this.checkviews()
+    this.checkviews();
+    this.fetchMembers(); // Fetch members data on component mount
+    this.fetchWebsiteDescription(); // Fetch the description when the component is mounted
   },
   methods: {
     goToAdminLogin() {
-      this.$router.push('/admin');  // 跳转到首页
+      this.$router.push('/admin');  // 跳转到管理员登录页
     },
     goToHomePage() {
       this.$router.push('/');  // 跳转到首页
@@ -80,11 +80,34 @@ export default {
           console.error('请求失败', error)
         })
     },
+    fetchMembers() {
+      // Fetch members information from the backend API
+      axios.get('http://localhost:8080/api/getmembers') // Adjust API endpoint
+        .then(response => {
+          this.members = response.data; // Assuming the response is an array of members
+        })
+        .catch(error => {
+          console.error('成员信息获取失败:', error);
+        });
+    },
     scrollToSection(section) {
       const element = document.getElementById(section)
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' })
       }
+    },
+    fetchWebsiteDescription() {
+      axios.get('http://localhost:8080/api/getdescription') // 调整为实际的API端点
+        .then(response => {
+          if (response.data.description) {
+            this.websiteDescription = response.data.description;
+          } else {
+            console.error('Website description not found');
+          }
+        })
+        .catch(error => {
+          console.error('请求失败:', error);
+        });
     }
   }
 }
@@ -96,7 +119,7 @@ export default {
     <div class="navbar">
       <div class="logo">
         <span class="logo-text">团队主页</span>
-        <span class="separator"></span>  <!-- 分隔符 -->
+        <span class="separator"></span>
       </div>
       <el-menu :default-active="active" class="menu" mode="horizontal">
         <el-menu-item index="home" @click="goToHomePage">首页</el-menu-item>
@@ -116,10 +139,8 @@ export default {
     <h2>🌐 网站访问次数：{{ views }} 次</h2>
     <div id="webInfo0" class="webInfo0">
       <h2>✨ 关于网站</h2>
-      <!-- 在此添加新的文本内容 -->
-      <p>我们是一个致力于搜集并挑选AI前沿科研成果的网站，致力于加强成果共享，尽力帮助需要的人节省检索的时间。</p>
+      <p>{{ websiteDescription }}</p>
     </div>
-
 
     <div id="download" class="download">
       <h2>📂 作业下载</h2>
@@ -142,46 +163,21 @@ export default {
     </div>
 
     <div id="team-container" class="team-container">
-      <h2>🌟 成员信息</h2>
-      <div class="members">
-        <!-- 成员 1 -->
-        <MContainer
-          fullname="崔交军"
-          studentId="20240001"
-          task="负责前端开发"
-          email="cuijiaojun@example.com"
-          github="https://github.com/cuijiaojun"
-          imageSrc="../pic/member1.jpg"
-        />
-        <!-- 成员 2 -->
-        <MContainer
-          fullname="高艺轩"
-          studentId="20240002"
-          task="负责后端开发"
-          email="gaoyixuan@example.com"
-          github="https://github.com/gaoyixuan"
-          imageSrc="../pic/member2.jpg"
-        />
-        <!-- 成员 3 -->
-        <MContainer
-          fullname="李嘉桐"
-          studentId="20240003"
-          task="负责数据库设计"
-          email="lijiatong@example.com"
-          github="https://github.com/lijiatong"
-          imageSrc="../pic/member3.jpg"
-        />
-        <!-- 成员 4 -->
-        <MContainer
-          fullname="杨峥芃"
-          studentId="20240004"
-          task="负责测试与部署"
-          email="yangzhengpeng@example.com"
-          github="https://github.com/yangzhengpeng"
-          imageSrc="member4.jpg"
-        />
-      </div>
+    <h2>🌟 成员信息</h2>
+    <div class="members">
+      <!-- 动态加载成员 -->
+      <MContainer
+        v-for="(member, index) in members" 
+        :key="index"
+        :fullname="member.name"
+        :studentId="member.student_id"
+        :task="member.bio"
+        :email="member.email"   
+        :github="member.github"
+        :imageSrc="member.imageSrc" 
+      />
     </div>
+  </div>
     <el-backtop :right="200" :bottom="100" />
   </div>
 </template>

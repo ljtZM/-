@@ -16,6 +16,7 @@ class m241207_000002_create_team_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
             'position' => $this->string()->notNull(),
+            'student_id' => $this->string(20)->notNull(), // 学号
             'bio' => $this->text(),
             'image_url' => $this->string(),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),

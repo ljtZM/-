@@ -12,6 +12,8 @@ use app\models\Admins;
 use app\models\Videos;
 use app\models\VideoComments;
 use app\models\VideoLikes;
+use app\models\Team;
+use app\models\Website;
 
 class ApiController extends Controller
 {   
@@ -414,4 +416,40 @@ class ApiController extends Controller
             }
         }
     }
+
+    public function actionGetmembers()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        
+        $members = Team::find()
+            ->select(['name', 'student_id', 'bio', 'email', 'github', 'image_url'])
+            ->all();
+
+        if ($members !== null) {
+            return $members;
+        } else {
+            return ['error' => 'No members found'];
+        }
+    }
+
+    public function actionGetdescription()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        // 查询网站描述信息
+        $website = Website::find()->select(['description'])
+                                ->where(['id' => 1])
+                                ->one();
+
+        // 如果找到网站内容，则返回
+        if ($website !== null) {
+            return ['description' => $website->description];
+        } else {
+            // 如果找不到网站内容，返回错误消息
+            return ['error' => 'Website description not found'];
+        }
+    }
+
+
 }

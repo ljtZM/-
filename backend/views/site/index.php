@@ -28,6 +28,12 @@ $this->title = 'Yii2后端';
                 <div class="col-md-4">
                     <a href="<?= \Yii::$app->urlManager->createUrl(['videos/index']) ?>" class="btn btn-primary rounded-circle">管理视频专区</a>
                 </div>
+                <div class="col-md-4">
+                    <a href="<?= \Yii::$app->urlManager->createUrl(['team/index']) ?>" class="btn btn-primary rounded-circle">管理团队成员</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="<?= \Yii::$app->urlManager->createUrl(['website/index']) ?>" class="btn btn-primary rounded-circle">网页信息</a>
+                </div>
             </div>
             <div class="row mt-3">
                 <div class="col-md-3">
