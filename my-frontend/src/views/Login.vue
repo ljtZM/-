@@ -1,5 +1,12 @@
 <template>
   <div class="form-box">
+    <div class="back1-button-container">
+      <button @click="goBack1" class="back-button">我是游客</button>
+    </div>
+
+    <div class="back2-button-container">
+      <button @click="goBack2" class="back-button">我是管理员</button>
+    </div>
     <!-- 切换按钮 -->
     <div class="toggle-buttons">
       <button 
@@ -112,6 +119,14 @@ export default {
     }
   },
   methods: {
+    // 返回按钮点击事件
+    goBack1() {
+        this.$router.push({ name: 'Home' });
+      },
+      // 返回按钮点击事件
+     goBack2() {
+        this.$router.push({ name: 'admin' });
+      },
     async handleLogin() {
       try {
         this.loading = true
@@ -381,5 +396,41 @@ input:focus::placeholder {
 .submit-btn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+/* 返回按钮样式 */
+.back1-button-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.back2-button-container {
+  position: absolute;
+  top: 80px;
+  left: 20px;
+}
+
+.back-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background: linear-gradient(145deg, #409EFF, #66b3ff); /* 渐变背景色 */
+  color: white;
+  border: none;
+  border-radius: 25px;  /* 增加圆角 */
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* 阴影效果 */
+}
+
+.back-button:hover {
+  background-color: #66b3ff;
+  transform: scale(1.05);  /* 鼠标悬停时按钮放大 */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);  /* 鼠标悬停时增加阴影 */
+}
+
+.back-button:focus {
+  outline: none; /* 去除点击后的默认边框 */
+  box-shadow: 0 0 0 4px rgba(64, 158, 255, 0.3);  /* 点击时显示聚焦效果 */
 }
 </style>

@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Team:从容应“队”，NKU
+ * coding by 高艺轩 2211820
+ * 视频控制器
+ */
 namespace app\controllers;
 
 use app\models\Videos;

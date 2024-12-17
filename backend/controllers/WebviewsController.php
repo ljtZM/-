@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Team:从容应“队”，NKU
+ * coding by 崔交军 2210199
+ * 网页浏览量控制器
+ */
 namespace app\controllers;
 
 use app\models\Webviews;

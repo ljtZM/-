@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Team:从容应“队”，NKU
+ * coding by 李嘉桐 2212023
+ * 用户控制器
+ */
 namespace app\controllers;
 
 use app\models\Users;

@@ -193,7 +193,7 @@ export default {
   min-height: 65vh;
   overflow-x: hidden;
   overflow-y: hidden;
-  background-color: #111;
+  background: linear-gradient(135deg, #8b9dc3, #3b5998);
   color: white;
 }
 
@@ -279,7 +279,9 @@ html body .el-menu .el-menu-item.is-active {
 }
 
 .breadcrumb button {
-  background: linear-gradient(45deg, #00e5ff, #008c9e);
+  
+  background: linear-gradient(45deg, #00e5ff, #00e5ff);
+  /*background: linear-gradient(45deg, #00e5ff, #008c9e);*/
   border: none;
   padding: 15px 25px;
   font-size: 18px;

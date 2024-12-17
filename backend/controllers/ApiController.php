@@ -1,5 +1,18 @@
 <?php
-
+/**
+ * Team:从容应“队”，NKU
+ * coding by 李嘉桐 2212023；杨峥芃 2211819；高艺轩 2211820；崔交军 2210199
+ * 包括：
+ * 管理员登录api
+ * 用户登录与注册api
+ * 增加网页浏览量和获得网页浏览量api
+ * 获取文章内容api
+ * 增加文章点赞和获取文章点赞api
+ * 增加文章评论和获取文章评论api
+ * 获取视频url api
+ * 获取网页信息api
+ * 获取团队成员信息api
+ */
 namespace app\controllers;
 
 use yii\web\Controller;
@@ -48,34 +61,6 @@ class ApiController extends Controller
         return ['status' => 0];
     }
 
-    
-    public function actionAddwebviews()
-    {
-        //设置响应格式为 JSON
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        $webviews = Webviews::find()->one();
-        if (!$webviews) {
-            return ['status' => -1, 'message' => '无法找到浏览量记录'];
-        }
-        $webviews->views = $webviews->views + 1;
-
-        if ($webviews->save()) {
-            return ['status' => 1, 'message' => '浏览量增加成功'];
-        } else {
-            return ['status' => -1, 'message' => '浏览量增加失败'];
-        }
-    }
-
-    //查询网站浏览量的api接口
-    public function actionCheckwebviews()
-    {
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        $webviews = Webviews::find()->one();
-
-        return $webviews;
-    }
     
     // 用于登录的API
     public function actionAuthenticate()
@@ -154,6 +139,33 @@ class ApiController extends Controller
         }
     }
 
+    public function actionAddwebviews()
+    {
+        //设置响应格式为 JSON
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $webviews = Webviews::find()->one();
+        if (!$webviews) {
+            return ['status' => -1, 'message' => '无法找到浏览量记录'];
+        }
+        $webviews->views = $webviews->views + 1;
+
+        if ($webviews->save()) {
+            return ['status' => 1, 'message' => '浏览量增加成功'];
+        } else {
+            return ['status' => -1, 'message' => '浏览量增加失败'];
+        }
+    }
+
+    //查询网站浏览量的api接口
+    public function actionCheckwebviews()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $webviews = Webviews::find()->one();
+
+        return $webviews;
+    }
 
     //获取文章总页数
     public function actionGetarticlepagecount()

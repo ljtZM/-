@@ -1,5 +1,9 @@
 <template>
   <div class="admin">
+    <div class="back-button-container">
+      <button @click="goBack" class="back-button">回到主页</button>
+    </div>
+
     <div class="login-container animated fadeInDown">
       <h2>管理员验证</h2>
       <el-form :model="form" ref="formRef" label-width="80px">
@@ -38,6 +42,11 @@ export default {
     };
   },
   methods: {
+     // 返回按钮点击事件
+     goBack() {
+        this.$router.push({ name: 'Home' });
+      },
+
     register() {
       const { username, password } = this.form;
 
@@ -64,6 +73,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
 
 .admin {
@@ -125,7 +136,7 @@ h2 {
 }
 
 /* 使用::v-deep确保样式作用于组件内部 */
-::v-deep .el-form-item .el-form-item__label {
+::deep .el-form-item .el-form-item__label {
   font-size: 1.4rem;  /* 设置标签字体大小 */
   font-weight: bold;  /* 设置标签字体加粗 */
   color: #3b5998;     /* 设置标签字体颜色 */
@@ -189,5 +200,35 @@ h2 {
     transform: scale(1);
     box-shadow: 0 0 12px rgba(59, 89, 152, 0.7), 0 0 25px rgba(59, 89, 152, 0.5);
   }
+}
+
+/* 返回按钮样式 */
+.back-button-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.back-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background: linear-gradient(145deg, #409EFF, #66b3ff); /* 渐变背景色 */
+  color: white;
+  border: none;
+  border-radius: 25px;  /* 增加圆角 */
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* 阴影效果 */
+}
+
+.back-button:hover {
+  background-color: #66b3ff;
+  transform: scale(1.05);  /* 鼠标悬停时按钮放大 */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);  /* 鼠标悬停时增加阴影 */
+}
+
+.back-button:focus {
+  outline: none; /* 去除点击后的默认边框 */
+  box-shadow: 0 0 0 4px rgba(64, 158, 255, 0.3);  /* 点击时显示聚焦效果 */
 }
 </style>

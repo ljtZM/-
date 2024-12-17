@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\ArticlesSearch $model */
+/** @var app\models\ArticleSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="articles-search">
+<div class="article-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -21,7 +21,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content') ?>
 
-    <?= $form->field($model, 'publication_date') ?>
+    <?= $form->field($model, 'author') ?>
+
+    <?= $form->field($model, 'created_at') ?>
+
+    <?php // echo $form->field($model, 'updated_at') ?>
+
+    <?php // echo $form->field($model, 'summary') ?>
+
+    <?php // echo $form->field($model, 'publication_date') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Team:从容应“队”，NKU
+ * coding by 崔交军 2210199
+ * 网页浏览量模型
+ */
 
 namespace app\models;
 

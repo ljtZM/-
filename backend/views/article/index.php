@@ -1,6 +1,6 @@
 <?php
 
-use app\models\Article; // 使用 Article 模型而不是 Articles
+use app\models\Article;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -13,7 +13,7 @@ use yii\grid\GridView;
 $this->title = 'Articles';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="article-index"> <!-- 注意类名与模型名称一致 -->
+<div class="article-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -27,21 +27,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'], // 序号列
+            ['class' => 'yii\grid\SerialColumn'],
 
-            'id', // 使用数据库字段名 id
-            'title', // 使用数据库字段名 title
-            'content:ntext', // 使用数据库字段名 content
-            'publication_date', // 使用数据库字段名 publication_date
-
+            'id',
+            'title',
+            'content:ntext',
+            'author',
+            'created_at',
+            'updated_at',
+            'summary:ntext',
+            'publication_date',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Article $model, $key, $index, $column) {
-                    // 使用数据库字段作为 URL 路由参数
-                    return Url::toRoute([$action, 'id' => $model->id]); // 使用主键 id
-                }
+                    return Url::toRoute([$action, 'id' => $model->id]);
+                 }
             ],
         ],
     ]); ?>
+
 
 </div>

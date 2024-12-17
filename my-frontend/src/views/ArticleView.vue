@@ -14,15 +14,21 @@
         <el-menu-item index="adminlogin" @click="goToAdminLogin">管理员登录</el-menu-item>
       </el-menu>
     </div>
-
-    <!-- <div class="header">
-      <h1 class="page-title">文章列表</h1>
+    <div class="search-bar">
+      <el-input 
+        v-model="searchQuery" 
+        placeholder="请输入搜索内容" 
+        suffix-icon="el-icon-search" 
+        @input="filterArticles" 
+        @keyup.enter="searchOnEnter" 
+        clearable
+      />
     </div>
-     -->
     <div class="content-container">
       <div class="article-grid">
+        <!-- 渲染过滤后的文章列表 -->
         <router-link 
-          v-for="item in articleList" 
+          v-for="item in filteredArticles" 
           :key="item.id" 
           :to="'/article/' + item.id" 
           class="article-card"
@@ -68,14 +74,29 @@ export default {
   data() {
     return {
       articleList: [],  // Articles list
-      pagecount: 1  // Total number of pages
+      pagecount: 1,  // Total number of pages
+      searchQuery: ""  // 确保定义了 searchQuery
     };
+  },
+  computed: {
+    filteredArticles() {
+      if (this.searchQuery === "") {
+        return this.articleList; // 如果没有搜索内容，显示所有文章
+      }
+      return this.articleList.filter(item => item.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
+    }
   },
   mounted() {
     this.getUrl();  // Fetch articles
     this.getpage();  // Fetch page count
   },
   methods: {
+    filterArticles() {
+      // 在这里不需要做任何操作，因为 `filteredArticles` 已经根据 `searchQuery` 自动计算了
+    },
+    searchOnEnter() {
+      this.filterArticles(); // 按下回车时触发搜索
+    },
     goToAdminLogin() {
       this.$router.push('/admin');  // 跳转到首页
     },
@@ -152,6 +173,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 
@@ -388,5 +410,13 @@ html body .el-menu .el-menu-item.is-active {
   color: white;
   text-align: center;
   padding: 10px;
+}
+.search-bar {
+  margin: 20px;
+
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  height: 50px;
 }
 </style>

@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Team:从容应“队”，NKU
+ * coding by 杨峥芃 2211819 李嘉桐 2212023
+ * 团队成员模型
+ */
 namespace app\models;
 
 use Yii;

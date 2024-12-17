@@ -18,7 +18,7 @@
     <!-- 个人信息展示区域 -->
     <div class="profile-box">
       <div class="profile-header">
-        <img :src="avatar" alt="头像" class="avatar" />
+        <img :src="require('@/assets/images/10.png')" alt="头像" class="avatar" />
         <h2>{{ username }}</h2>
         <p class="email">{{ email }}</p>
       </div>
@@ -70,7 +70,7 @@ export default {
     return {
       username: sessionStorage.getItem("Username") || "",
       password: sessionStorage.getItem("Password") || "",
-      avatar: sessionStorage.getItem("Avatar") || "../assets/images/1.png",
+      avatar: "../assets/images/1.png",
       isInfoVisible: false,
       isEditVisible: false,
       isEditFormVisible: false,
