@@ -147,7 +147,7 @@ export default {
             type: "warning",
           })
             .then(() => {
-              this.$router.push("/login");
+              this.$router.push("/");
             })
             .catch(() => {
               this.$message.info("已取消操作");

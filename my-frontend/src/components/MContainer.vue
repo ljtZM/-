@@ -52,6 +52,7 @@ export default {
     getImagePath() {
       // 解析路径，指向 src/assets/pic 下的图片
       try {
+        console.log(`@/assets/pic/${this.imageSrc}`);
         return require(`@/assets/pic/${this.imageSrc}`);
       } catch (error) {
         console.error("图片加载失败：", error);
@@ -113,6 +114,7 @@ export default {
 
 .content {
   margin-left: 20px;
+  text-align: left;
   color: #fff;
   font-size: 1.1rem;
   line-height: 1.8rem;

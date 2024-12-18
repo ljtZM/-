@@ -11,23 +11,23 @@ export default {
       downloadSrc: [
         {
           title: '崔交军',
-          link: 'public/data/1.zip',
+          link: '/data/个人作业（2211819_杨峥芃）.zip',
         },
         {
           title: '高艺轩',
-          link: 'public/data/1.zip'
+          link: '/data/个人作业（2211820_高艺轩）.zip'
         },
         {
           title: '团队作业',
-          link: 'public/data/1.zip'
+          link: '/data/1.zip'
         },
         {
           title: '李嘉桐',
-          link: 'public/data/1.zip'
+          link: '/data/个人作业（2212023_李嘉桐）.zip'
         },
         {
           title: '杨峥芃',
-          link: 'public/data/1.zip'
+          link: '/data/个人作业（2211819_杨峥芃）.zip'
         },
       ],
     }
@@ -45,7 +45,7 @@ export default {
       this.$router.push('/admin');  // 跳转到管理员登录页
     },
     goToHomePage() {
-      this.$router.push('/');  // 跳转到首页
+      this.$router.push('/home');  // 跳转到首页
     },
     goToAboutUsPage() {
       this.$router.push('/aboutUs');  // 跳转到关于我们页面
@@ -62,7 +62,7 @@ export default {
           type: "warning",
         })
           .then(() => {
-            this.$router.push("/login"); // 跳转到登录页面
+            this.$router.push("/"); // 跳转到登录页面
           })
           .catch(() => {
             this.$message.info("已取消操作");
@@ -85,6 +85,7 @@ export default {
       axios.get('http://localhost:8080/api/getmembers') // Adjust API endpoint
         .then(response => {
           this.members = response.data; // Assuming the response is an array of members
+          console.log(this.members); // 检查数据
         })
         .catch(error => {
           console.error('成员信息获取失败:', error);
@@ -174,7 +175,7 @@ export default {
         :task="member.bio"
         :email="member.email"   
         :github="member.github"
-        :imageSrc="member.imageSrc" 
+        :imageSrc="member.image_url" 
       />
     </div>
   </div>
@@ -396,7 +397,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  align-items: center;
+  align-items: left;
   margin-top: 20px;
 }
 

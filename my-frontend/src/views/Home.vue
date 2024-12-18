@@ -110,7 +110,7 @@ export default {
       this.$router.push('/videoview');
     },
     goToHomePage() {
-      this.$router.push('/');  // 跳转到首页
+      this.$router.push('/home');  // 跳转到首页
     },
     goToAboutUsPage() {
       this.$router.push('/aboutUs');  // 跳转到关于我们页面
@@ -127,7 +127,7 @@ export default {
           type: "warning",
         })
           .then(() => {
-            this.$router.push("/login"); // 跳转到登录页面
+            this.$router.push("/"); // 跳转到登录页面
           })
           .catch(() => {
             this.$message.info("已取消操作");

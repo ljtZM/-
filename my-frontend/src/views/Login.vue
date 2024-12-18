@@ -115,7 +115,7 @@ export default {
     const Username = sessionStorage.getItem('Username')
     const Password = sessionStorage.getItem('Password')
     if (Username && Password) {
-      window.location.href = '/'
+      window.location.href = '/home'
     }
   },
   methods: {
@@ -148,7 +148,7 @@ export default {
 
           // 导航到 /home 路径
           setTimeout(() => {
-            window.location.href = '/'
+            window.location.href = '/home'
           }, 2000)
         } else {
           this.$message.error(response.data.message || '登录失败')

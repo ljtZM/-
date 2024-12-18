@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
     {
-        path: '/',
+        path: '/home',
         name: 'Home',
         component: () => import('../views/Home.vue') // 如果有首页
     },
@@ -22,7 +22,7 @@ const routes = [
         component: () => import('../views/Profile.vue') // 创建 Profile 页面
     },
     {
-        path: '/login',
+        path: '/',
         name: 'login',
         component: () => import('../views/Login.vue'),
         meta: {

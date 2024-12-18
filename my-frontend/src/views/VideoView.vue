@@ -142,7 +142,7 @@
 
       // 页面跳转函数
       const goToHomePage = () => {
-        router.push('/');  // 跳转到首页
+        router.push('/home');  // 跳转到首页
       };
 
       const goToAboutUsPage = () => {
@@ -160,7 +160,7 @@
       const goToProfilePage = () => {
         const username = sessionStorage.getItem('Username');
         if (!username) {
-          router.push('/login'); // 未登录，跳转到登录页面
+          router.push('/'); // 未登录，跳转到登录页面
         } else {
           router.push('/profile'); // 已登录，跳转到个人页面
         }

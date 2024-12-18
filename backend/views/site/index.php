@@ -4,7 +4,7 @@
  * coding by 李嘉桐 2212023
  * 将site/index.php作为后台主页面，并修改页面样式
  */
-$this->title = 'Yii2后端';
+$this->title = '管理员界面';
 ?>
 <div class="site-index">
     <div class="back-button-container">
@@ -45,15 +45,19 @@ $this->title = 'Yii2后端';
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script>
-export default {
-  methods: {
-     // 返回按钮点击事件
-     goBack() {
-        this.$router.push({ name: 'Home' });
-      },
-  },
-};
+    // Vue.js 初始化脚本
+    document.addEventListener('DOMContentLoaded', function () {
+        new Vue({
+            el: '.site-index', // 挂载到根元素
+            methods: {
+                goBack() {
+                    window.location.href = 'http://localhost:8081/home';
+                }
+            }
+        });
+    });
 </script>
 
 <style scoped>

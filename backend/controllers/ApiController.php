@@ -66,16 +66,13 @@ class ApiController extends Controller
     public function actionAuthenticate()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
         $username = \Yii::$app->request->get('username');
         $password = \Yii::$app->request->get('password');
-
         if ($username !== null && $password !== null) {
             // 根据用户名查找用户
             $user = Users::find()
                 ->where(['username' => $username])
                 ->one();
-
             if ($user !== null && \Yii::$app->security->validatePassword($password, $user->password_hash)) {
                 // 密码验证通过
                 return ['status' => 1, 'message' => '登录成功'];
@@ -84,7 +81,6 @@ class ApiController extends Controller
                 return ['status' => 0, 'message' => '用户名或密码错误'];
             }
         }
-
         return ['status' => -1, 'message' => '参数缺失'];
     }
 
@@ -92,31 +88,24 @@ class ApiController extends Controller
     public function actionRegister()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
         $username = \Yii::$app->request->get('username');
         $password = \Yii::$app->request->get('password');
         $email = \Yii::$app->request->get('email');
-
-
         if ($username && $password && $email) {
             // 检查用户名是否已存在
             $existingUser = Users::find()
             ->where(['username' => $username])
             ->one();
-
             if ($existingUser !== null) {
             return ['status' => 0, 'message' => '用户名已被注册'];
             }
-
             // 检查邮箱是否已存在
             $existingEmail = Users::find()
             ->where(['email' => $email])
             ->one();
-
             if ($existingEmail !== null) {
             return ['status' => 0, 'message' => '邮箱已被注册'];
             }
-
             // 创建新用户
             $user = new Users();
             $user->username = $username;
@@ -124,10 +113,8 @@ class ApiController extends Controller
             $user->role = 'user'; // 默认角色是用户，可以根据需求调整
             $user->created_at = date('Y-m-d H:i:s');
             $user->updated_at = $user->created_at;
-
             // 密码进行哈希处理
             $user->password_hash = \Yii::$app->security->generatePasswordHash($password);
-
             if ($user->save()) {
                 return ['status' => 1, 'message' => '注册成功'];
             } else {
@@ -226,15 +213,12 @@ class ApiController extends Controller
     public function actionGetarticlecomment()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
         $articleID = \Yii::$app->request->get('article_id');
-        
         // 查询指定文章 ID 的评论
         $comments = ArticleComments::find()
             ->select(['id', 'article_id', 'comment', 'comment_date', 'username'])
             ->where(['article_id' => $articleID])
             ->all();
-
         return $comments;
     }
 
@@ -242,18 +226,15 @@ class ApiController extends Controller
     public function actionAddarticlecomment()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
         $username = \Yii::$app->request->get('username');
         $comment = \Yii::$app->request->get('comment');
         $articleID = \Yii::$app->request->get('article_id');
         $comment_date = \Yii::$app->request->get('comment_date');
-
         $commentModel = new ArticleComments();
         $commentModel->username = $username;
         $commentModel->comment = $comment;
         $commentModel->article_id = $articleID;
         $commentModel->comment_date = $comment_date;
-
         if ($commentModel->save()) {
             return ['status' => 1, 'message' => 'Comment added successfully'];
         } else {
@@ -265,13 +246,10 @@ class ApiController extends Controller
     public function actionGetarticlelikes()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
         $articleID = \Yii::$app->request->get('article_id');
-        
         $likes = ArticleLikes::find()
             ->where(['article_id' => $articleID])
             ->one();
-        
         if ($likes === null) {
             // 如果没有找到点赞记录，则创建一条
             $likes = new ArticleLikes();
@@ -279,7 +257,6 @@ class ApiController extends Controller
             $likes->likes = 0;
             $likes->save();
         }
-
         return $likes->likes;
     }
 
@@ -287,14 +264,11 @@ class ApiController extends Controller
     public function actionAddarticlelikes()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
         $articleID = \Yii::$app->request->get('article_id');
         $num = \Yii::$app->request->get('num');
-        
         $likes = ArticleLikes::find()
             ->where(['article_id' => $articleID])
             ->one();
-        
         if ($likes === null) {
             // 如果没有找到点赞记录，则创建一条
             $likes = new ArticleLikes();
@@ -302,7 +276,6 @@ class ApiController extends Controller
             $likes->likes = 0;
             $likes->save();
         }
-
         // 增加点赞数
         $likes->likes += $num;
         if ($likes->save()) {
@@ -451,7 +424,7 @@ class ApiController extends Controller
 
         // 查询网站描述信息
         $website = Website::find()->select(['description'])
-                                ->where(['id' => 1])
+                                ->where(['id' => 2])
                                 ->one();
 
         // 如果找到网站内容，则返回
