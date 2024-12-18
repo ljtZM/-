@@ -1,9 +1,5 @@
 <?php
-/**
- * Team:从容应“队”，NKU
- * coding by 高艺轩 2211820
- * 视频评论控制器
- */
+
 namespace app\controllers;
 
 use app\models\VideoComments;
@@ -13,9 +9,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * VideocommentsController implements the CRUD actions for VideoComments model.
+ * VideoCommentsController implements the CRUD actions for VideoComments model.
  */
-class VideoCommentsController extends Controller
+class VideocommentsController extends Controller
 {
     /**
      * @inheritDoc

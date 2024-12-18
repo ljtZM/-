@@ -1,5 +1,5 @@
 <template>
-  <div class="home-container">
+  <div :key="uniqueKey" class="home-container">
     <!-- 上方导航栏 -->
     <div class="navbar">
       <div class="logo">
@@ -84,6 +84,7 @@
 export default {
   data() {
     return {
+      uniqueKey: 0,
       active: "home",
       imagePaths: [
         require('@/assets/images/1.png'),
@@ -99,9 +100,36 @@ export default {
       lastVisitTime: null // 用来记录上次访问的时间
     };
   },
+  mounted() {
+    this.resetLayout(); // 初始化时重置布局
+  },
   methods: {
+    resetLayout() {
+      console.log("触发resetLayout")
+      this.uniqueKey += 1;
+      // 强制刷新组件布局，防止跳转后位置错乱
+      const mainContainer = this.$el.querySelector('.home-container');
+      console.log("触发resetLayout2")
+        // 直接使用 requestAnimationFrame 确保在浏览器重绘后执行
+        requestAnimationFrame(() => {
+          console.log("触发resetLayout3")
+          mainContainer.style.display = 'none';  // 临时隐藏
+          mainContainer.offsetHeight;  // 强制触发布局重绘
+          mainContainer.style.display = 'flex'; // 恢复显示
+        });
+      if (mainContainer) {
+        console.log("触发resetLayout2")
+        // 直接使用 requestAnimationFrame 确保在浏览器重绘后执行
+        requestAnimationFrame(() => {
+          console.log("触发resetLayout3")
+          mainContainer.style.display = 'none';  // 临时隐藏
+          mainContainer.offsetHeight;  // 强制触发布局重绘
+          mainContainer.style.display = 'flex'; // 恢复显示
+        });
+      }
+    },
     goToAdminLogin() {
-      this.$router.push('/admin');  // 跳转到首页
+      this.$router.push('/admin');  
     },
     goToArticlePage() {
       this.$router.push('/articles');

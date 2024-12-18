@@ -63,23 +63,22 @@ $config = [
                 'api/getarticlelikes' => 'api/getarticlelikes',
                 'api/addarticlelikes' => 'api/addarticlelikes',
 
+                'api/getvideo' => 'api/getvideo',
+                'api/getvideocomment' => 'api/getvideocomment',
+                'api/addvideocomment' => 'api/addvideocomment',
+                'api/getvideolikes' => 'api/getvideolikes',
+                'api/addvideolikes' => 'api/addvideolikes',
+
                 'api/addwebviews' => 'api/addwebviews',
                 'api/checkwebviews' => 'api/checkwebviews',
                 'api/getmembers' => 'api/getmembers',
                 'api/getdescription' => 'api/getdescription',
-                
-                'api/getvideo' => 'api/getvideo',
-                'api/getvideocomments' => 'api/getvideocomments',
-                'api/addvideocomments' => 'api/addvideocomments',
-                'api/getvideolikes' => 'api/getvideolikes',
-                'api/addvideolikes' => 'api/addvideolikes',
                 
 
                 'api/getclick' => 'api/getclick',
                 'api/addclick' => 'api/addclick',
 
                 'api/getpersonalinfo' => 'api/getpersonalinfo',
-
                 
                 'Users/index' => 'users/index',
                 'article/index' => 'article/index',

@@ -286,7 +286,7 @@ class ApiController extends Controller
     }
 
     //用于视频播放页获取评论的api
-    public function actionGetvideocomments()
+    public function actionGetvideocomment()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
@@ -305,13 +305,10 @@ class ApiController extends Controller
     public function actionGetvideolikes()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
         $videoID = \Yii::$app->request->get('video_id');
-        
         $likes = VideoLikes::find()
             ->where(['video_id' => $videoID])
             ->one();
-        
         if ($likes === null) {
             // 如果没有找到点赞记录，则创建一条
             $likes = new VideoLikes();
@@ -319,7 +316,6 @@ class ApiController extends Controller
             $likes->likes = 0;
             $likes->save();
         }
-
         return $likes->likes;
     }
 
@@ -327,12 +323,9 @@ class ApiController extends Controller
     public function actionAddvideolikes()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        // 使用post方法获取请求参数
         $videoID = \Yii::$app->request->get('video_id');
-        
-
         // 查找或创建点赞记录
+        $num = \Yii::$app->request->get('num');
         $likes = VideoLikes::find()
             ->where(['video_id' => $videoID])
             ->one();
@@ -341,37 +334,30 @@ class ApiController extends Controller
             $likes = new VideoLikes();
             $likes->video_id = $videoID;
             $likes->likes = 0;
+            $likes->save();
         }
-
         // 更新点赞数
-        $likes->likes += 1;
-        if (!$likes->save()) {
-            return ['status' => -1, 'message' => '未成功保存'];
-        }
-        
+        $likes->likes += $num;
         if ($likes->save()) {
-            return ['status' => 1, 'message' => 'Likes updated successfully', 'likes' => $likes->likes];
+            return ['status' => 1, 'message' => 'Likes updated successfully'];
         } else {
             return ['status' => -1, 'message' => 'Failed to update likes'];
         }
     }
 
     //添加视频评论
-    public function actionAddvideocomments()
+    public function actionAddvideocomment()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
         $username = \Yii::$app->request->get('username');
         $comment = \Yii::$app->request->get('comment');
         $videoID = \Yii::$app->request->get('video_id');
         $comment_date = \Yii::$app->request->get('comment_date');
-
         $commentModel = new VideoComments();
         $commentModel->username = $username;
         $commentModel->comment = $comment;
         $commentModel->video_id = $videoID;
         $commentModel->comment_date = $comment_date;
-
         if ($commentModel->save()) {
             return ['status' => 1, 'message' => 'Comment added successfully'];
         } else {

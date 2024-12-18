@@ -197,6 +197,9 @@
 <style scoped>
 /* Import the external CSS file */
 @import '../assets/css/gallery.css';
+@import '../assets/css/video.css';
+
+
 /* 上方导航栏样式 */
 .navbar {
   display: flex;
@@ -240,7 +243,6 @@
   font-weight: lighter;  /* 字体更轻 */
   font-style: italic; /* 斜体 */
 }
-
 
 .menu {
   display: flex;

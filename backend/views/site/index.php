@@ -38,7 +38,12 @@ $this->title = '管理员界面';
                 <div class="col-md-3">
                      <a href="<?= \Yii::$app->urlManager->createUrl(['articlelikes/index']) ?>" class="btn btn-primary rounded-circle">管理文章点赞</a>
                 </div>
-                
+                <div class="col-md-3">
+                    <a href="<?= \Yii::$app->urlManager->createUrl(['videocomments/index']) ?>" class="btn btn-primary rounded-circle">管理视频评论</a>
+                </div>
+                <div class="col-md-3">
+                     <a href="<?= \Yii::$app->urlManager->createUrl(['videolikes/index']) ?>" class="btn btn-primary rounded-circle">管理视频点赞</a>
+                </div>
             </div>
         </div>
     </div>

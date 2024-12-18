@@ -1,8 +1,5 @@
 <?php
-/**
- * Team:从容应“队”，NKU
- * coding by 高艺轩 2211820
- */
+
 namespace app\models;
 
 use yii\base\Model;
@@ -10,7 +7,7 @@ use yii\data\ActiveDataProvider;
 use app\models\VideoLikes;
 
 /**
- * VideolikesSearch represents the model behind the search form of `app\models\Videolikes`.
+ * VideoLikesSearch represents the model behind the search form of `app\models\VideoLikes`.
  */
 class VideoLikesSearch extends VideoLikes
 {

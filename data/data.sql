@@ -54,7 +54,7 @@ CREATE TABLE `article_likes` (
   PRIMARY KEY (`id`),
   KEY `fk_article_likes_article_id` (`article_id`),
   CONSTRAINT `fk_article_likes_article_id` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +63,7 @@ CREATE TABLE `article_likes` (
 
 LOCK TABLES `article_likes` WRITE;
 /*!40000 ALTER TABLE `article_likes` DISABLE KEYS */;
-INSERT INTO `article_likes` VALUES (6,1,2),(7,2,1),(8,4,1);
+INSERT INTO `article_likes` VALUES (6,1,2),(7,2,2),(8,4,1),(9,3,4);
 /*!40000 ALTER TABLE `article_likes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,6 +215,64 @@ INSERT INTO `users` VALUES (3,'李嘉桐','$2y$13$NBzstdBp5trrnOOZiN5Vh.bqYMNQKo
 UNLOCK TABLES;
 
 --
+-- Table structure for table `video_likes`
+--
+
+DROP TABLE IF EXISTS `video_likes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `video_likes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `video_id` int(11) NOT NULL,
+  `likes` int(11) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `video_id` (`video_id`),
+  CONSTRAINT `video_likes_ibfk_1` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `video_likes`
+--
+
+LOCK TABLES `video_likes` WRITE;
+/*!40000 ALTER TABLE `video_likes` DISABLE KEYS */;
+INSERT INTO `video_likes` VALUES (1,2,2),(2,4,0),(3,3,0),(4,1,1);
+/*!40000 ALTER TABLE `video_likes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `videocomments`
+--
+
+DROP TABLE IF EXISTS `videocomments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `videocomments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `video_id` int(11) NOT NULL,
+  `comment` text NOT NULL,
+  `comment_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `username` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `video_id` (`video_id`),
+  KEY `username` (`username`),
+  CONSTRAINT `videocomments_ibfk_1` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `videocomments_ibfk_2` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `videocomments`
+--
+
+LOCK TABLES `videocomments` WRITE;
+/*!40000 ALTER TABLE `videocomments` DISABLE KEYS */;
+INSERT INTO `videocomments` VALUES (1,3,'这个视频真有趣！','2024-12-18 06:33:16','李嘉桐'),(2,2,'这个视频也太有意思了吧！','2024-12-18 06:40:30','李嘉桐'),(3,1,'这个机器狗太有趣了','2024-12-18 06:40:45','李嘉桐');
+/*!40000 ALTER TABLE `videocomments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `videos`
 --
 
@@ -286,7 +344,7 @@ CREATE TABLE `webviews` (
 
 LOCK TABLES `webviews` WRITE;
 /*!40000 ALTER TABLE `webviews` DISABLE KEYS */;
-INSERT INTO `webviews` VALUES (16);
+INSERT INTO `webviews` VALUES (22);
 /*!40000 ALTER TABLE `webviews` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -299,4 +357,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-18 18:56:17
+-- Dump completed on 2024-12-18 22:44:06

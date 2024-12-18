@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var app\models\VideoCommentsSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'VideoComments';
+$this->title = 'Videocomments';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="video-comments-index">
