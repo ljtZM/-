@@ -11,7 +11,7 @@ export default {
       downloadSrc: [
         {
           title: '崔交军',
-          link: '/data/个人作业（2211819_杨峥芃）.zip',
+          link: '/data/个人作业（2210199_崔交军）.zip',
         },
         {
           title: '高艺轩',
@@ -19,7 +19,7 @@ export default {
         },
         {
           title: '团队作业',
-          link: '/data/1.zip'
+          link: '/data/从容应“队”_团队作业(2212023_2211819_2211820_2210199).zip'
         },
         {
           title: '李嘉桐',
